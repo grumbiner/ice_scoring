@@ -2,17 +2,17 @@ import os
 import sys
 import datetime
 from math import *
-#print("importing external modules",flush=True)
+#debug: print("importing external modules",flush=True)
 
 import numpy as np
 import numpy.ma as ma
-#print("imported numpy",flush=True)
+#debug: print("imported numpy",flush=True)
 
 import netCDF4
-#print("Finished importing external modules",flush=True)
+#debug: print("Finished importing external modules",flush=True)
 
 import bounders
-#print("Finished importing private  modules",flush=True)
+#debug: print("Finished importing private  modules",flush=True)
 
 #---------------------------------------------------
 # new management of header variable names
@@ -24,20 +24,19 @@ headers = {
   'tmask' : '',
   'tarea' : ''
 }
-HOME="/ncrc/home1/Robert.Grumbine/rgdev/"
-fin = open(HOME+'/ice_scoring/model_definitions/cice.header','r')
+
+SCORING=os.environ['SCOREDIR']
+fin = open(SCORING+'/model_definitions/cice.header','r')
 k = 0
 for line in fin:
-  #print(k, len(line))
+    #debug: print(k, len(line), flush=True)
   if (len(line) < 3):
-      #print("zero length line",flush=True)
+      #debug: print("zero length line",flush=True)
       break
   words = line.split()
-  #print(k, words[0])
+  #debug: print(k, words[0], flush=True)
   headers[words[0]] = words[1]
   k += 1
-
-#print(headers)
 
 #---------------------------------------------------
 #Gross bound checks on .nc files, developed primarily from the sea ice (CICE6) output
@@ -50,9 +49,10 @@ for line in fin:
 #---------------------------------------------------
 
 errcount = int(0)
+ngfail   = int(0)
 
 if (not os.path.exists(sys.argv[1]) ):
-  print("failure to find ",sys.argv[1])
+  print("failure to find ",sys.argv[1], flush=True)
   exit(1)
 else:
   model = netCDF4.Dataset(sys.argv[1], 'r')
@@ -75,26 +75,26 @@ else:
   try:
     fdic = open(sys.argv[2])
   except:
-    print("could not find a dictionary file ",sys.argv[2])
+    print("could not find a dictionary file ",sys.argv[2], flush=True)
     exit(1)
 
   try: 
     flying_dictionary = open(sys.argv[3],"w")
     flyout = True
   except:
-    #debug print("cannot write out to bootstrap dictionary file")
+    #debug: print("cannot write out to bootstrap dictionary file", flush=True)
     flyout = False
 
   parmno = 0
   for line in fdic:
     words = line.split()
-    #print(len(words), words)
+    #debug: print(len(words), words, flush=True)
     parm = words[0]
     tmp = bounders.bounds(param=parm)
     try: 
       temporary_grid = model.variables[parm][0,:,:]
     except:
-      print(parm," not in data file")
+      #debug: print(parm," not in data file", flush=True)
       continue
 
     # find or bootstrap bounds -----------------
@@ -105,13 +105,14 @@ else:
 
     #Pointwise checks -- Show where (and which) test failed:
     if (gfail):
+      ngfail += 1
       errcount += tmp.where(temporary_grid, tlats, tlons, tmask, tarea)
 
     parmno += 1
 
 #exit codes are bounded, while error counts are not
+print(sys.argv[1],"errcount, gfails = ",errcount, ngfail)
 if (errcount == 0):
   exit(0)
 else:
-  print("errcount = ",errcount)
   exit(1)

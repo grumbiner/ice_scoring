@@ -18,6 +18,10 @@ import bounders
 SCORING=os.environ['SCOREDIR']
 fin = open(SCORING+'/model_definitions/cice.header','r')
 
+
+ctl_dict = SCORING+'/gross_checks/ctl/cice.evo'
+flying_dict = 'alpha'
+
 # new management of header variable names
 headers = {
   'nx' : '',
@@ -43,11 +47,11 @@ for line in fin:
 
 ICE_BASE='/ncrc/home1/Robert.Grumbine/scratch/CICE_RUNS/'
 EXPT_BASE='gaea_intel_smoke_gx3_4x1_diag1_evo0_evolength_yr_out.evo/'
+testid='gen1b'
+pno = sys.argv[1]
+EXPT_BASE='gaea_intel_smoke_gx3_1x1_evo'+pno+'_med3_yr_out.'+testid
 ICE_RUNDIR=ICE_BASE+EXPT_BASE+'/history'
-
-ctl_dict = SCORING+'/gross_checks/ctl/cice.evo'
-flying_dict = 'alpha'
-fout = open('fout',"w")
+fout = open('fout'+pno+'.'+testid,"w")
 
 #---------------------------------------------------
 #Gross bound checks on .nc files, developed primarily from the sea ice (CICE6) output
@@ -134,7 +138,7 @@ while (tag <= end):
       parmno += 1
     # ---- end of reading through ctl file and checking parms
 
-    print(tag.strftime("%Y%m%d"),"errcount, gfails = ",errcount, ngfail)
+    print(tag.strftime("%Y%m%d"),"errcount, gfails = ",errcount, ngfail, file = fout)
 
   tag += dt
   model.close()

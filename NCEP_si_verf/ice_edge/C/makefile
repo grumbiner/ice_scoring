@@ -14,24 +14,12 @@ finds = find_edge_ncep find_edge_ims find_edge_cfsv2 find_edge_cice find_edge_co
 
 all: cscore_edge $(finds)
 
-ncopts=-I $(NETCDF)/include -L $(NETCDF)/lib -lnetcdf $(HDF5_LINK_OPTS)
+#ncopts=-I $(NETCDF)/include -L $(NETCDF)/lib -lnetcdf $(HDF5_LINK_OPTS)
+ncopts=-I $(NETCDF)/include -L $(NETCDF)/lib -lnetcdf -lm
 
 #--------
-cscore_edge : score_edge.C
-	$(CC) $< $(opts) -l imf -o $(@)
-
-
-find_edge_ims : find_edge_ims.C
-	$(CC) $< $(opts) -o $(@)
-
-find_edge_cfsv2 : find_edge_cfsv2.C
-	$(CC) $< $(opts) -o $(@)
-
 find_edge_nrl : find_edge_nrl.C
 	$(CC) $< $(opts) $(ncopts) -o $(@)
-
-find_edge_ncep : find_edge.C
-	$(CC) -DGRIDTYPE=global_12th $< $(opts) -o $(@)
 
 find_edge_nsidc_north : find_edge_nsidc.C
 	$(CC) -Dnsidc_north $< $(opts) $(ncopts) -o $(@)
@@ -43,7 +31,22 @@ find_edge_consortium : find_edge_consortium.C
 	$(CC) -Dbenchmark $< $(opts) $(ncopts) -o $(@)
 
 find_edge_cice : find_edge_cice.C
-	$(CC) $< $(opts) $(ncopts) -limf -lirc -o $(@)
+	#$(CC) $< $(opts) $(ncopts) -limf -lirc -o $(@)
+	$(CC) $< $(opts) $(ncopts) -o $(@)
+
+# Don't use netcdf:
+cscore_edge : score_edge.C
+	#$(CC) $< $(opts) -l imf -o $(@)
+	$(CC) $< $(opts) -o $(@)
+
+find_edge_ims : find_edge_ims.C
+	$(CC) $< $(opts) -o $(@)
+
+find_edge_cfsv2 : find_edge_cfsv2.C
+	$(CC) $< $(opts) -o $(@)
+
+find_edge_ncep : find_edge.C
+	$(CC) -DGRIDTYPE=global_12th $< $(opts) -o $(@)
 
 
 install :

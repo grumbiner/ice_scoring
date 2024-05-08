@@ -1,4 +1,3 @@
-import sys
 import os
 import datetime
 
@@ -15,16 +14,19 @@ dt = datetime.timedelta(1)
 acrit = 0.0
 
 # specific to given experiments
-#EXPT='reference.evo0'
-GEN=sys.argv[1]
-nexpt = int(sys.argv[2])
 
-for evo in range(0,nexpt):
+evo=0
+for EXPT in ('gaea_intel_smoke_gx3_1x1_med3_nodyn_yr_out',
+             'gaea_intel_smoke_gx3_1x1_med3_nodyn_upwind_yr_out',
+             'gaea_intel_smoke_gx3_1x1_med3_nodyn_notrans_yr_out',
+             'gaea_intel_smoke_gx3_1x1_med3_nodyn_notrans_upwind_yr_out'
+            ):
+
+  print(EXPT)
+#debug:  exit(0)
   tag   = start
-  #debug: print("trying experiment ",evo, flush=True)
 
   sno="{:d}".format(evo)
-  EXPT='/gaea_intel_smoke_gx3_1x1_evo'+sno+'_med3_yr_out.'+GEN
   fname = 'fout'+sno
 
   fout = open(fname,'w')
@@ -36,4 +38,4 @@ for evo in range(0,nexpt):
     os.system(cmd)
     tag += dt
   fout.close()
-
+  evo += 1

@@ -46,11 +46,11 @@ for line in fin:
 #debug: exit(0)
 
 ICE_BASE='/ncrc/home1/Robert.Grumbine/scratch/CICE_RUNS/'
-#EXPT_BASE='gaea_intel_smoke_gx3_4x1_diag1_evo0_evolength_yr_out.evo/'
-testid='gen2'
 pno = sys.argv[1]
-EXPT_BASE='gaea_intel_smoke_gx3_1x1_evo'+pno+'_med3_yr_out.'+testid
-ICE_RUNDIR=ICE_BASE+EXPT_BASE+'/history'
+#testid='gen3'
+testid     = sys.argv[2]
+EXPT_BASE  = 'gaea_intel_smoke_gx3_1x1_evo'+pno+'_med3_yr_out.'+testid
+ICE_RUNDIR = ICE_BASE+EXPT_BASE+'/history'
 fout = open('fout'+pno+'.'+testid,"w")
 
 #---------------------------------------------------

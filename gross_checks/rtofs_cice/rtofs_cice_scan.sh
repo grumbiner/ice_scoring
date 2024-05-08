@@ -3,7 +3,7 @@
 #SBATCH -J eval_rtofs
 #SBATCH -e eval_rtofs
 #SBATCH -o eval_rtofs
-#SBATCH -t 3:55:00
+#SBATCH -t 4:25:00
 #SBATCH -q batch
 #SBATCH -A marine-cpu
 #SBATCH -N 1
@@ -16,7 +16,7 @@
 ##PBS -j oe
 ##PBS -A ICE-DEV
 ##PBS -q dev
-##PBS -l walltime=1:00:00
+##PBS -l walltime=4:25:00
 ##PBS -l select=1:ncpus=1
 #Wcoss2
 
@@ -35,10 +35,10 @@ export PYTHONPATH=$PYTHONPATH:$HOME/rgdev/ice_scoring/gross_checks/shared
 export MODDEF=$HOME/rgdev/ice_scoring/model_definitions
 
 #export modelout=${modelout:-$HOME/noscrub/model_intercompare/rtofs_cice}
-export modelout=${modelout:-$HOME/clim_data/rtofs_gross/2023q4}
+export modelout=${modelout:-$HOME/clim_data/rtofs_gross/}
 
-export start=${start:-20231018}
-export end=${end:-20231231}
+export start=${start:-20240321}
+export end=${end:-20240331}
 
 tag=$start
 while [ $tag -le $end ] 

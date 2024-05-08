@@ -13,3 +13,4 @@ do
 done
 
 wc *.s | sort -n
+find . -maxdepth 1 -name '*.s' -size 0 -exec rm {} \;

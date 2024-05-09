@@ -12,12 +12,13 @@ start = datetime.date(2005,1,1)
 end   = datetime.date(2005,12,31)
 dt = datetime.timedelta(1)
 
-acrit = 0.0
 
 # specific to given experiments
 #EXPT='reference.evo0'
 GEN=sys.argv[1]
 nexpt = int(sys.argv[2])
+
+acrit = float(sys.argv[3])
 
 for evo in range(0,nexpt):
   tag   = start
@@ -33,7 +34,8 @@ for evo in range(0,nexpt):
     cmd = EXDIR+'/cice_solo '+FIXDIR+'/seaice_gland5min '+OUTDIR+EXPT+ '/history/iceh.'+dtag+'.nc '+"{:.3f}".format(acrit) + ' ' + dtag + " >> "+ fname
     #debug: print(tag," ",end="", file = fout, flush=True)
     #debug: print(tag,flush=True)
+    #debug: print(cmd, flush=True)
     os.system(cmd)
     tag += dt
   fout.close()
-
+  #debug: exit(0)

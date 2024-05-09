@@ -47,7 +47,6 @@ for line in fin:
 
 ICE_BASE='/ncrc/home1/Robert.Grumbine/scratch/CICE_RUNS/'
 pno = sys.argv[1]
-#testid='gen3'
 testid     = sys.argv[2]
 EXPT_BASE  = 'gaea_intel_smoke_gx3_1x1_evo'+pno+'_med3_yr_out.'+testid
 ICE_RUNDIR = ICE_BASE+EXPT_BASE+'/history'

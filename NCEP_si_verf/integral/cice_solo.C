@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
     fclose(fin);
   #elif CICE
      cice_reader(conc, tmask, tarea, tlat, argv[2]);
-     if (argc == 4) {
+     if (argc >= 4) {
        minconc = atof(argv[3]);
        //debug: printf("min conc = %f\n",minconc);
        for (int i = 0; i < conc.xpoints()*conc.ypoints(); i++) {

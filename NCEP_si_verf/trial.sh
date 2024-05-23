@@ -12,4 +12,5 @@
 
 cd $HOME/rgdev/ice_scoring/NCEP_si_verf/
 source ~/env3.9/bin/activate
-time python3 year_cice.py
+# args are CICE testid, number of experiments, and concentration cutoff
+time python3 year_cice.py gen5 96 0.15

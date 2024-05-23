@@ -27,7 +27,7 @@ for line in obs:
   obs_glob[k] = float(line[3])
   k += 1
 nsidc.close()
-#debug: print(obs_nh.mean(), obs_sh.mean(), obs_glob.mean(), flush=True )
+#debug: print("obs ",obs_nh.mean(), obs_sh.mean(), obs_glob.mean(), flush=True )
   
 # Get model:
 def getmod(mod_nh, mod_sh, mod_glob, model):
@@ -72,8 +72,8 @@ def eval_mod(obs_nh, mod_nh, obs_sh, mod_sh, obs_glob, mod_glob, nmod):
     "{:.3f}".format(delta_glob.mean()), "{:.3f}".format(delta_glob.std()), "{:.3f}".format(dg2.mean()) )
   
   # plot the two
-  import matplotlib
-  import matplotlib.pyplot as plt
+  #import matplotlib
+  #import matplotlib.pyplot as plt
     
   #fig,ax = plt.subplots()
   #ax.set(xlabel = 'date ', ylabel = 'million km^2 extent')
@@ -85,7 +85,8 @@ def eval_mod(obs_nh, mod_nh, obs_sh, mod_sh, obs_glob, mod_glob, nmod):
 
 for i in range(0, 120):
   #fname="gen4.15/fout"+"{:d}".format(i)
-  fname="~/scratch/CICE_RUNS/generation3/fout"+"{:d}".format(i)
+  fname="/home/Robert.Grumbine/rgdev/generation1/int.gen1/fout"+"{:d}".format(i)
+  #debug: print("fname = ",fname, flush=True)
   try: 
     model = open(fname, "r")
     getmod(mod_nh, mod_sh, mod_glob, model)
@@ -93,6 +94,6 @@ for i in range(0, 120):
     eval_mod(obs_nh, mod_nh, obs_sh, mod_sh, obs_glob, mod_glob, i)
     #debug: print(i, obs_nh.mean(), mod_nh.mean(), flush=True )
   except:
-    print("species ",i,"was a fatal variation")
+    print("species ",i,"was a fatal or nonexistent variation", file=sys.stderr)
 
 

@@ -32,16 +32,31 @@ def is_nondom(item, candidates):
       nondom2 = True
       return True
   return (nondom1 or nondom2)
+
+# -- versions for multimetric --------
+def dominates(ref, cand):
+    return True
+def dominated_by(ref, cand):
+    return True
+def nondom(ref, cand):
+    return True
+#return # of metrics candidate is better than the reference on.
+def check(ref, cand):
+    nbetter = 0
+    for k in range (0, len(cand[1])):
+        if (cand[1][k] < ref[1][k]):
+            nbetter += 1
+    return nbetter
 #----------------------------------------------------
 
 nstat = 9
 ncand = 120
 
-fin = open(sys.argv[1], "r")
 stat = numpy.zeros((ncand,nstat))
 exptno = numpy.zeros((ncand))
 
 #------  read in and transform (mean errors = abs(mean error)) 
+fin = open(sys.argv[1], "r")
 k = 0
 makeabs = [0,3,6]
 for line in fin:
@@ -62,8 +77,7 @@ for i in range (0,nstat):
   best[i] = numpy.min(stat[0:nexpt,i])
   print('best val for stat #',i, best[i])
 
-
-# ----- append candidates as good as the best on one or the other measure ----
+# ----- append candidates --------------------------------------
 candidates = []
 k = 0
 pset = [exptno[k], stat[k]]
@@ -73,24 +87,9 @@ candidates.append(pset)
 #debug: print(candidates[k][1])
 #debug: print(candidates[k][1][5])
 
-def dominates(ref, cand):
-    return True
-def dominated_by(ref, cand):
-    return True
-def nondom(ref, cand):
-    return True
-#return # of metrics candidate is better than the reference on.
-def check(ref, cand):
-    nbetter = 0
-    for k in range (0, len(cand[1])):
-        if (cand[1][k] < ref[1][k]):
-            nbetter += 1
-    return nbetter
-
-nc = 1
 dominated = numpy.zeros((nexpt),dtype='bool')
 nparam = len(pset[1])
-#debug: print("original pset: ",pset, dominated[1], flush=True)
+#debug: print("original pset: ",pset, dominated[k], flush=True)
 best_expt = pset[0]
 
 newbest = False
@@ -169,7 +168,7 @@ for k in range(0,ncands):
     #debug: print(i,k,len(finalset), len(candidates), flush=True )
     if (check(finalset[i], candidates[k]) == nparm):
       print("candidate ",k," dominates finalset member",i)
-      finalset[i] = copy.deepcopy[k]
+      finalset[i] = copy.deepcopy(candidates[k])
       newdom = True
       break
   # if it is dominated by any in hand, ignore it:

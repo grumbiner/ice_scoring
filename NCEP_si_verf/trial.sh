@@ -5,7 +5,7 @@
 #SBATCH --partition=batch
 #SBATCH --account=nggps_emc
 #SBATCH --clusters=c5
-#SBATCH --time=4:59:00
+#SBATCH --time=5:59:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1

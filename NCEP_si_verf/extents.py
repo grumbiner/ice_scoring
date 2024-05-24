@@ -66,7 +66,8 @@ def eval_mod(obs_nh, mod_nh, obs_sh, mod_sh, obs_glob, mod_glob, nmod):
   dg2 = np.abs(delta_glob)
   #print(nmod, "gl mean std mae: ",delta_glob.mean(), delta_glob.std(), dg2.mean() )
   
-  print(nmod, "nh, sh, glob; mean, std, mae: ",
+  #print(nmod, "nh, sh, glob; mean, std, mae: ",
+  print(nmod, 
         "{:.3f}".format(delta_nh.mean()), "{:.3f}".format(delta_nh.std()), "{:.3f}".format(d2.mean()) ,
         "{:.3f}".format(delta_sh.mean()), "{:.3f}".format(delta_sh.std()), "{:.3f}".format(ds2.mean()) ,
     "{:.3f}".format(delta_glob.mean()), "{:.3f}".format(delta_glob.std()), "{:.3f}".format(dg2.mean()) )
@@ -85,7 +86,8 @@ def eval_mod(obs_nh, mod_nh, obs_sh, mod_sh, obs_glob, mod_glob, nmod):
 
 for i in range(0, 120):
   #fname="gen4.15/fout"+"{:d}".format(i)
-  fname="/home/Robert.Grumbine/rgdev/generation1/int.gen1/fout"+"{:d}".format(i)
+  #fname="/home/Robert.Grumbine/rgdev/generation1/int.gen1/fout"+"{:d}".format(i)
+  fname="fout"+"{:d}".format(i)
   #debug: print("fname = ",fname, flush=True)
   try: 
     model = open(fname, "r")

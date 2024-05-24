@@ -50,7 +50,7 @@ def check(ref, cand):
 #----------------------------------------------------
 
 nstat = 9
-ncand = 120
+ncand = 1200
 
 stat = numpy.zeros((ncand,nstat))
 exptno = numpy.zeros((ncand))
@@ -167,14 +167,14 @@ for k in range(0,ncands):
   for i in range(0, len(finalset)):
     #debug: print(i,k,len(finalset), len(candidates), flush=True )
     if (check(finalset[i], candidates[k]) == nparm):
-      print("candidate ",k," dominates finalset member",i)
+      #debug: print("candidate ",k," dominates finalset member",i, flush=True)
       finalset[i] = copy.deepcopy(candidates[k])
       newdom = True
       break
   # if it is dominated by any in hand, ignore it:
   for i in range(0, len(finalset)):
     if (check(finalset[i], candidates[k]) == 0):
-      print("candidate ",k, " is dominated by member ",i)
+      #debug: print("candidate ",k, " is dominated by member ",i, flush=True)
       dominated = True
       break
   # if not dominant or dominated, add it to list:

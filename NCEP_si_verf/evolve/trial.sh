@@ -10,8 +10,8 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 
-cd $HOME/rgdev/ice_scoring/NCEP_si_verf/
+cd $HOME/rgdev/ice_scoring/NCEP_si_verf/evolve/
 source ~/env3.9/bin/activate
 
 # args are CICE testid, number of experiments, and concentration cutoff
-time python3 year_cice.py gen7 120 0.15
+time python3 year_cice.py gen1 120 0.15

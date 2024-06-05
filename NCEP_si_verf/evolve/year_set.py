@@ -7,14 +7,13 @@ FIXDIR='/ncrc/home1/Robert.Grumbine/rgref/fix/'
 EXDIR='/ncrc/home1/Robert.Grumbine/rgdev/ice_scoring/NCEP_si_verf/exec/'
 OUTDIR='/ncrc/home1/Robert.Grumbine/scratch/CICE_RUNS/'
 
+acrit = 0.0
+
 start = datetime.date(2005,1,1)
 end   = datetime.date(2005,12,31)
 dt = datetime.timedelta(1)
 
-acrit = 0.0
-
 # specific to given experiments
-
 evo=0
 for EXPT in ('gaea_intel_smoke_gx3_1x1_med3_nodyn_yr_out',
              'gaea_intel_smoke_gx3_1x1_med3_nodyn_upwind_yr_out',
@@ -23,7 +22,6 @@ for EXPT in ('gaea_intel_smoke_gx3_1x1_med3_nodyn_yr_out',
             ):
 
   print(EXPT)
-#debug:  exit(0)
   tag   = start
 
   sno="{:d}".format(evo)
@@ -33,8 +31,6 @@ for EXPT in ('gaea_intel_smoke_gx3_1x1_med3_nodyn_yr_out',
   while (tag <= end):
     dtag=tag.strftime("%Y-%m-%d")
     cmd = EXDIR+'/cice_solo '+FIXDIR+'/seaice_gland5min '+OUTDIR+EXPT+ '/history/iceh.'+dtag+'.nc '+"{:.3f}".format(acrit) + ' ' + dtag + " >> "+ fname
-    #debug: print(tag," ",end="", file = fout, flush=True)
-    #debug: print(tag,flush=True)
     os.system(cmd)
     tag += dt
   fout.close()

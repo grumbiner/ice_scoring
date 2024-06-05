@@ -183,6 +183,10 @@ for k in range(0,ncands):
 
 print("length of the final set: ",len(finalset))
 for k in range(0,len(finalset)):
-  print(k, int(finalset[k][0]), finalset[k][1])
+  print(k, int(finalset[k][0]),  end="")
+  for i in range(0, nparm):
+    print(" ",finalset[k][1][i], end="")
+  print("\n", end="")
+
 
  

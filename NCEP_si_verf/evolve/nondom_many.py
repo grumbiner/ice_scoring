@@ -60,7 +60,7 @@ genno  = numpy.zeros((ncand))
 # run on multiple input files:
 k = 0
 makeabs = [0,3,6]
-
+ngen    = len(sys.argv)
 for fno in range(1,len(sys.argv)):
   print(len(sys.argv), fno, sys.argv[fno], flush=True)
   fin = open(sys.argv[fno], "r")
@@ -172,11 +172,15 @@ for k in range(0,ncands):
   if (not newdom and not dominated):
     finalset.append(candidates[k])
 
+#----------------------------------------------------------
+bygen = numpy.zeros((ngen),dtype="int")
 print("length of the final set: ",len(finalset))
 for k in range(0,len(finalset)):
+  bygen[int(finalset[k][0])] += 1
   print(k, int(finalset[k][0]), int(finalset[k][1]), end="")
   for i in range(0, nparm):
     print(" ",finalset[k][2][i], end="")
   print("\n", end="")
 
- 
+for k in range(0, ngen):
+  print("generation ",k," contributed ",bygen[k],"members")

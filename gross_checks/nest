@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export SCOREDIR=$HOME/rgdev/ice_scoring
+
+export PYTHONPATH=$PYTHONPATH:$SCOREDIR/gross_checks/shared:$HOME/rgops/mmablib/py
+

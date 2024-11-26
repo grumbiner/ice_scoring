@@ -6,9 +6,10 @@ export PYTHONPATH=$PYTHONPATH:$HOME/rgdev/ice_scoring/gross_checks/shared/
 
 #for cyc in 00 06 12 18
 #do
-cyc=06
+cyc=00
 
-for dd in 20 21 22 23 19
+#for dd in 20 21 22 23 19
+for dd in 22 23 21 20 19
 do
   export tag=202402$dd
 

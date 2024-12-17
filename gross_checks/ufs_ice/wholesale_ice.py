@@ -62,8 +62,8 @@ for yy in (2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018):
       #base="/scratch2/NCEPDEV/climate/Robert.Grumbine/modelout/ufs_p6/gfs."+from_date.strftime("%Y%m%d")+"/00/"
       #base=system(basename sys.argv[1])
       base = sys.argv[1] + "/" + from_date.strftime("%Y%m%d") + "/"
-
       print("base = ",base,flush=True)
+
       fout  = open("ice."+tag,"w")
       fout_global  = open("ice.global."+tag,"w")
       while ( (valid_date - from_date) <= length):

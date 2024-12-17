@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
     fclose(fin);
   #elif CICE
      cice_reader(conc, tmask, tarea, tlat, argv[2]);
-     if (argc == 4) {
+     if (argc >= 4) {
        minconc = atof(argv[3]);
        //debug: printf("min conc = %f\n",minconc);
        for (int i = 0; i < conc.xpoints()*conc.ypoints(); i++) {
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
   #endif
   
 // will be desirable to have a tag for which model/analysis is used:
-  printf("%f NH %6.3f %6.3f SH %6.3f %6.3f Global %6.3f %6.3f \n", minconc, nharea, nhextent,
+  printf("%s %.3f NH %6.3f %6.3f SH %6.3f %6.3f Global %6.3f %6.3f \n", argv[4], minconc, nharea, nhextent,
    sharea, shextent, (nharea + sharea), (nhextent+shextent) );
 
   return 0;

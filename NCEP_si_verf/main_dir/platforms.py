@@ -48,7 +48,8 @@ for x in machines:
     machine = (x)
     break
 
-#debug print("platforms.py machine = ",machine, flush=True)
+#debug 
+print("platforms.py machine = ",machine, flush=True)
 
 if not machine:
     print ('ice verification is currently only supported on: %s' % ' '.join(machines))

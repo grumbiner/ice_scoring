@@ -5,18 +5,20 @@
 #Robert Grumbine
 # 25 February 2020
 
+set -xe
+
 export model=ufs.s2s
 
-#hera export BASE=${BASE:-/home/Robert.Grumbine/rgdev/ice_scoring/}
+#hera 
+export BASE=${BASE:-/home/Robert.Grumbine/rgdev/ice_scoring/}
 if [ -z $BASE ] ; then
-  echo WCOSS: BASE= /u/Robert.Grumbine/rgdev/
-  echo Hera:  BASE= /home/Robert.Grumbine/rgdev/
-  echo Orion: BASE= /u/rgrumbin/rgdev/
-  echo Gaea:  BASE= /ncrc/home1/Robert.Grumbine/rgdev/
+  echo WCOSS: BASE= /u/Robert.Grumbine/rgdev/ice_scoring/
+  echo Hera:  BASE= /home/Robert.Grumbine/rgdev/ice_scoring/
+  echo Orion: BASE= /u/rgrumbin/rgdev/ice_scoring/
+  echo Gaea:  BASE= /ncrc/home1/Robert.Grumbine/rgdev/ice_scoring/
   echo Select one of these
   echo "  "
 fi
-export BASE=${BASE:-$HOME/rgdev/ice_scoring/}
 echo BASE = $BASE
 
 #Check the python environment -- assumes that path already references an appropriate interpreter 
@@ -30,15 +32,6 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 python3 ${BASE}/NCEP_si_verf/main_dir/checkenv.py
-
-#Check the directory / data environment for needed directories
-export EXDIR=`pwd`
-export EXBASE=`pwd`
-python3 ${BASE}/NCEP_si_verf/main_dir/platforms.py trial
-if [ $? -ne 0 ] ; then
-  echo you need to correct the machines list and directory references in platforms.py
-  exit 1
-fi
 
 #Start copying elements over to carry out the evaluation
 for f in contingency_plots.py collate.py 
@@ -55,7 +48,8 @@ if [ ! -f runtime.def ] ; then
   cp -p ${BASE}/model_definitions/${model}.def runtime.def
 fi
 
-for f in README verf_files.py setup_verf_ice.py platforms.py final.py scores.py all.csh year.csh 
+#for f in README verf_files.py setup_verf_ice.py platforms.py scores.py year.csh final.py all.csh 
+for f in README verf_files.py setup_verf_ice.py platforms.py scores.py 
 do
   if [ ! -f $f ] ; then
     cp -p ${BASE}/NCEP_si_verf/main_dir/$f .
@@ -70,13 +64,16 @@ do
   fi
 done
 
+export EXDIR=`pwd`
+export EXBASE=`pwd`
+
 #create and populate the exec directory if needed:
-if [ ! -d ${BASE}/exec ] ; then
+if [ ! -d ${BASE}/NCEP_si_verf/exec ] ; then
   cd ${BASE}
   ./makeall.sh
   if [ $? -eq 0 ] ; then
     echo copy exec dir from $BASE
-    cp -rp ${BASE}/exec $EXDIR
+    cp -rp ${BASE}/NCEP_si_verf/exec $EXDIR
   else
     echo failed to find or create execs, exiting now
     exit 2
@@ -88,7 +85,7 @@ fi
 cd $EXDIR
 for d in exec 
 do
-  cp -rp ${BASE}/$d .
+  cp -rp ${BASE}/NCEP_si_verf/$d .
   if [ $? -ne 0 ] ; then
     echo error trying to copy $d from $BASE
     exit 4
@@ -114,6 +111,13 @@ if [ ! -d ${BASE}/fix ] ; then
   exit 3
 fi
 ln -sf $BASE/../fix .
+
+#Check the directory / data environment for needed directories
+python3 ${BASE}/NCEP_si_verf/main_dir/platforms.py trial
+if [ $? -ne 0 ] ; then
+  echo you need to correct the machines list and directory references in platforms.py
+  exit 1
+fi
 
 if [ $? -eq 0 ] ; then
   echo successfully created the evaluation directory and stocked it with control files,

@@ -4,13 +4,14 @@ SH=/bin/bash
 export base=`pwd`
 
 # --------------  System-dependent modules/paths/... here --------
-##netcdf -- WCOSS 3.0
-#module load PrgEnv-intel/8.3.3
-#module load intel-classic/2022.2.0.262
-#module load netcdf/4.7.4
+# Wcoss2
+#module load PrgEnv-intel
+#module load intel-classic
+#module load netcdf
 #module load geos
 #module load proj
-#module load python/3.8.6
+#module load python
+#source ~/env3.10/bin/activate
 
 ##netcdf -- orion
 #module load intel/2020   #, 2020
@@ -19,20 +20,23 @@ export base=`pwd`
 #python
 
 #netcdf -- Hera -- update 20221006
-module load intel/2022.1.2
-module load impi/2022.1.2
-module load netcdf/4.7.0
-module use -a /contrib/anaconda/modulefiles
-module load anaconda/latest
+#module load intel/2022.1.2
+#module load impi/2022.1.2
+#module load netcdf/4.7.0
+#module use -a /contrib/anaconda/modulefiles
+#module load anaconda/latest
+#source ~/env3.7/bin/activate
 
-##netcdf -- Gaea
-#module load intel
-#module load PrgEnv-intel
-#module load cray-mpich
-#module load cray-hdf5
-#module load cray-netcdf
-#export NETCDF=$NETCDF_DIR
+#netcdf -- Gaea
+module load PrgEnv-intel
+module load cray-mpich
+module load intel-classic/2022.2.1
+module load cray-hdf5
+# netcdf/4.9.0.3 (the current default) fails to link
+module load cray-netcdf/4.9.0.7
+export NETCDF=$NETCDF_DIR
 #export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
+source ~/env3.9/bin/activate
 
 # --------------  Should need no changes below here --------
 module list
@@ -53,6 +57,7 @@ if [ ! -f ../mmablib/libombf_4.a ] ; then
   make
 fi
 
+set -xe
 #ice_edge : 
 cd ${base}/ice_edge/C
 make

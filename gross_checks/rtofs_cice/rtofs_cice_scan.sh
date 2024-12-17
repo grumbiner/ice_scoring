@@ -1,29 +1,44 @@
 #!/bin/bash
+# --- Hera
+#SBATCH -J eval_rtofs
+#SBATCH -e eval_rtofs
+#SBATCH -o eval_rtofs
+#SBATCH -t 4:25:00
+#SBATCH -q batch
+#SBATCH -A marine-cpu
+#SBATCH -N 1
+#SBATCH --mail-type FAIL
+#SBATCH --mail-user robert.grumbine@noaa.gov
+# --- Hera
+# --- Wcoss2
 ##PBS -N rtofs_eval
 ##PBS -o rtofs_eval
 ##PBS -j oe
 ##PBS -A ICE-DEV
 ##PBS -q dev
-##PBS -l walltime=1:00:00
+##PBS -l walltime=4:25:00
 ##PBS -l select=1:ncpus=1
 #Wcoss2
 
 # Run time is about 1 hour per month on rtofs_cice
+export MODEL=rtofs_cice
 
 #set by calling script -----------------------------------------
-#. $HOME/rgdev/toolbox/misc/python_load.wcoss2
-#export GDIR=$HOME/rgdev/ice_scoring/gross_checks
-#cd $GDIR
+source  $HOME/rgdev/toolbox/misc/python_load.hera
+#source  $HOME/rgdev/toolbox/misc/python_load.wcoss2
+export GDIR=$HOME/rgdev/ice_scoring/gross_checks
+cd $GDIR
 
 set -x
 
 export PYTHONPATH=$PYTHONPATH:$HOME/rgdev/ice_scoring/gross_checks/shared
 export MODDEF=$HOME/rgdev/ice_scoring/model_definitions
 
-export modelout=${modelout:-$HOME/noscrub/model_intercompare/rtofs_cice}
+#export modelout=${modelout:-$HOME/noscrub/model_intercompare/rtofs_cice}
+export modelout=${modelout:-$HOME/clim_data/rtofs_gross/}
 
-export start=${start:-20200401}
-export end=${end:-20200630}
+export start=${start:-20240321}
+export end=${end:-20240331}
 
 tag=$start
 while [ $tag -le $end ] 

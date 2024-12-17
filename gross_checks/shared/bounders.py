@@ -188,13 +188,17 @@ class bounds:
 
 
 
-  def where(self, grid, lats, lons, mask, area, fout=sys.stdout):
+  def where(self, grid, lats, lons, mask, area, level = 1013.25, fout=sys.stdout):
     #debug print("in where ", flush=True)
     #debug print("in where ", file=fout,flush=True)
     errcount = 0
     #Show where (and which) test failed.  self is the bounds data
     if (grid.min() < self.pmin): 
-      print("parameter i j longitude latitude model_value test_checked test_value", file=fout)
+      if (level == 1013.25):
+        print("parameter i j longitude latitude model_value test_checked test_value", file=fout)
+      else:
+        print("parameter i j level longitude latitude model_value test_checked test_value", file=fout)
+
       mask = ma.masked_array(grid < self.pmin)
       indices = mask.nonzero()
       errcount += len(indices[0])
@@ -202,10 +206,17 @@ class bounds:
       for k in range(0,len(indices[0])):
         i = indices[1][k]
         j = indices[0][k]
-        print(self.param,i,j,lons[j,i], lats[j,i], grid[j,i], " vs pmin ", self.pmin,file=fout)
+        if (level == 1013.25):
+          print(self.param,i,j,lons[j,i], lats[j,i], grid[j,i], " vs pmin ", self.pmin,file=fout)
+        else:
+          print(self.param,i,j,level, lons[j,i], lats[j,i], grid[j,i], " vs pmin ", self.pmin,file=fout)
+
 
     if (grid.max() > self.pmax):
-      print("parameter i j longitude latitude model_value test_checked test_value", file=fout)
+      if (level == 1013.25):
+        print("parameter i j longitude latitude model_value test_checked test_value", file=fout)
+      else:
+        print("parameter i j level longitude latitude model_value test_checked test_value", file=fout)
       mask = ma.masked_array(grid > self.pmax)
       indices = mask.nonzero()
       errcount += len(indices[0])
@@ -213,8 +224,10 @@ class bounds:
       for k in range(0,len(indices[0])):
         i = indices[1][k]
         j = indices[0][k]
-        print(self.param,i,j,lons[j,i], lats[j,i], grid[j,i], " vs pmax ",
-                self.pmax,file=fout)
+        if (level == 1013.25):
+          print(self.param,i,j,lons[j,i], lats[j,i], grid[j,i], " vs pmax ", self.pmax,file=fout)
+        else:
+          print(self.param,i,j,level, lons[j,i], lats[j,i], grid[j,i], " vs pmax ", self.pmax,file=fout)
 
     fout.flush()
     return errcount

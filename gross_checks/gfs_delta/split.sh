@@ -1,14 +1,16 @@
 #!/bin/sh
 
-for f in gh t q w wz u v o3mr absv clwmr icmr rwmr snmr grle 
-do
-  grep "$f " all.a | sort -nr -k 4 > all.a.$f
-  grep "$f " all.b | sort -nr -k 4 > all.b.$f
-done
-grep -v absv all.a.v > v; mv v all.a.v
-grep -v absv all.b.v > v; mv v all.b.v
+# skip gh to avoid 'high max' or 'high min'
 
-for f in gh t q w wz u v o3mr absv clwmr icmr rwmr snmr grle 
+for f in t q w wz u v o3mr absv clwmr icmr rwmr snmr grle 
 do
-  cat all.a.$f all.b.$f | sort -nr -k 4 > $f
+  grep "$f " all.c | grep pm | sort -nr -k 4 > all.c.$f
+  grep "$f " all.d | grep pm | sort -nr -k 4 > all.d.$f
+done
+grep -v absv all.c.v > v; mv v all.c.v
+grep -v absv all.d.v > v; mv v all.d.v
+
+for f in t q w wz u v o3mr absv clwmr icmr rwmr snmr grle 
+do
+  cat all.c.$f all.d.$f | sort -nr -k 4 > $f
 done

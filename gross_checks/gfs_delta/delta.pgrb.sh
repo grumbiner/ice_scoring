@@ -8,8 +8,8 @@ export PYTHONPATH=$PYTHONPATH:$HOME/rgdev/ice_scoring/gross_checks/shared/
 #do
 cyc=00
 
-#for dd in 19 20 21 22 23
-for dd in 20 21 22 23
+#for dd in 20 21 22 23 19
+for dd in 22 23 21 20 19
 do
   export tag=202402$dd
 
@@ -35,10 +35,10 @@ do
     #B:
     fnb=gfs.t${cyc}z.pgrb2b.0p25.f${hhh}
   
-    python3 grib_bootstrap.py $ctrla/$fna $expta/$fna > a.${hhh}.$tag 
-    python3 grib_bootstrap.py $ctrlb/$fnb $exptb/$fnb > b.${hhh}.$tag 
+    python3 gfs_pgrb_delta_selected.py delta.ctl $ctrla/$fna $expta/$fna > c.${hhh}.$tag 
+    python3 gfs_pgrb_delta_selected.py delta.ctl $ctrlb/$fnb $exptb/$fnb > d.${hhh}.$tag 
   
-    mv [ab].${hhh}.$tag ${tag}$cyc
+    mv [cd].${hhh}.$tag ${tag}$cyc
   
     if [ $hhh -ge 120 ] ; then
       delta=3

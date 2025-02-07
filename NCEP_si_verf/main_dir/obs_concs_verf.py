@@ -2,8 +2,10 @@ import os
 import sys
 import datetime
 
+'''
 #Arguments:
 #   start_date verification_date forecast_dir_path
+'''
 
 from verf_files import *
 from platforms import *
@@ -81,13 +83,15 @@ while (lead < fcst_len):
       nsidcverf = False
 
 #OSI-SAF
-  #if (osiverf):
-    #x = get_osisaf(initial_date, valid_date, dirs['osidir'])
-    #if (x != 0):
-    #  print("could not get file for osi verification, turning off osiverf\n",flush=True)
-    #  osiverf = False
+  if (osiverf):
+    x = get_osisaf(initial_date, valid_date, dirs['osidir'])
+    if (x != 0):
+      print("could not get file for osi verification, turning off osiverf\n",flush=True)
+      osiverf = False
 
   obs = (nsidcverf or ncepverf or imsverf or osiverf)
+  if (not obs):
+      raise Exception("could not find an observational verification data set")
 
 #Get Model Forecast ---------------------------------------------
   x = get_fcst(initial_date, valid_date, fcst_dir)

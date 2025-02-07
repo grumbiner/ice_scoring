@@ -15,8 +15,9 @@ packages = [ 'math', 'csv', 'datetime', 'os',  'pkgutil', 'pstats', 'netCDF4', '
 all_passed = True
 for p in packages:
   assert check_import(p), \
-    '{0} not present. Please install via pip or conda.'.format(p)
+    p+' not present. Please install via pip or conda.'
 
 if all_passed:
     print('All checks passed. Your python environment is good to go!')
 
+# '{0} not present. Please install via pip or conda.'.format(p)

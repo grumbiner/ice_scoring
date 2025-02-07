@@ -64,7 +64,7 @@ if (machine == 'HERA'):
   dirs['ncepdir']   = dirs['verf_head']+'/ice5min/'
   dirs['nsidcdir']  = dirs['verf_head']+'/G02202_V4/'
   dirs['osisafdir'] = dirs['verf_head']+'/osisaf/'
-  dirs['fixdir']   = '/home/Robert.Grumbine/rgdev/fix'
+  dirs['fixdir']   = '/home/Robert.Grumbine/rg/fix'
 elif (machine == 'Orion'):
   dirs['imsdir'] = '/home/rgrumbin/rgdev/verification_data/ims/'
   dirs['ncepdir'] = '/home/rgrumbin/rgdev/verification_data/ice5min/'

@@ -5,7 +5,7 @@ Check for all the environment declarations and files needed
 
 """
 
-print("at top level", flush=True)
+print("eval_env at top level", flush=True)
 
 class runtime_environment:
   exbase = ""
@@ -30,6 +30,7 @@ class runtime_environment:
       exbase = os.environ['EXBASE']
     except:
       print("EXBASE was not defined, running with current working directory",flush=True)
+      print("EXBASE should point to directory holding exec and fix directories",flush=True)
       exbase = "."
     
     exdir  = exbase+"/exec/"
@@ -62,5 +63,4 @@ class runtime_environment:
         exit(1)
   
     return 0
-  
 #--------------- Utility Functions --------------------------------

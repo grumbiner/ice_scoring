@@ -2,9 +2,9 @@ To get the executables, go up to the main ice_scoring directory and execute
 makeall.sh
 
 Ensure that you have a link to the fixed files directory under your ice_scoring directory:
-WCOSS:  /u/Robert.Grumbine/rgdev/fix/
-Hera:   /home/Robert.Grumbine/rgdev/fix
-Orion:  /home/rgrumbin/rgdev/fix
+WCOSS:  /u/Robert.Grumbine/rg/fix/
+Hera:   /home/Robert.Grumbine/rg/fix
+Gaea:   /home/Robert.Grumbine/rg/fix
 
 Gross checks and ice model scoring are currently run separately.
 

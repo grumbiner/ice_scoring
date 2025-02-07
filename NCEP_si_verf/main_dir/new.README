@@ -1,0 +1,15 @@
+* build mmablib
+* build executables
+* in main_dir:
+  -- check the python environment itself:
+    python3 checkenv.py
+
+  -- ensure set up is complete/appropriate
+
+    export EXBASE= (directory holding fix/ and exec/)
+    python3 platforms.py -- ensure platform is known, directories available
+
+    export PYTHONPATH=$PYTHONPATH:../../mmablib/py
+
+    python3 scores.py
+    python3 verf_files.py

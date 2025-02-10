@@ -73,26 +73,21 @@ def solo_score(fcst, fdate, fout = sys.stdout ):
 """
 Evaluating the ice concentrations
 """
-def score_nsidc(fcst_dir, nsidcdir, fdate, obsdate, exdir, fixdir):
+def score_nsidc(fcst, nsidc, fcst_dir, nsidcdir, tag, valid, hr, exdir, fixdir):
   #debug: print("py entered score_nsidc",flush=True)
   retcode = int(0)
-  vyear = int(obsdate.strftime("%Y"))
+  vyear = int(valid.strftime("%Y"))
 
   if (vyear < 2010):
-    print("Invalid verification year in obsdate, score_nsidc",obsdate, vyear, fdate)
+    print("Invalid verification year in valid, score_nsidc",valid, vyear, tag)
     exit(1)
 
   #isolate forecast file name references to fcst_name:
   #debug: print("score_nsidc calling fcst_name",flush=True)
-  valid_fname = fcst_name(obsdate, fdate, fcst_dir)
-
-  #UFS style:
-
-  #CICE consortium name:
-  #valid_fname = fcst_dir+'iceh.'+obsdate.strftime("%Y")+'-'+obsdate.strftime("%m")+'-'+obsdate.strftime("%d")+".nc"
+  valid_fname = fcst.get_filename(hr, fcst_dir)
 
   if (not os.path.exists(valid_fname)):
-    print("scores.py cannot find forecast file for "+fdate.strftime("%Y%m%d"),obsdate.strftime("%Y%m%d"), flush=True )
+    print("scores.py cannot find forecast file for "+tag.strftime("%Y%m%d"),valid.strftime("%Y%m%d"), flush=True )
     retcode = int(1)
     return retcode
 
@@ -102,12 +97,12 @@ def score_nsidc(fcst_dir, nsidcdir, fdate, obsdate, exdir, fixdir):
     sys.stdout.flush()
     pole="north"
     ptag="n"
-    obsname = nsidc_name(pole, obsdate, nsidcdir)
+    obsname = nsidc.get_filename(valid, nsidcdir)
 
     cmd = (exdir+exname+" "+valid_fname+" "+obsname+ " "+fixdir+"skip_hr " +
            fixdir + "G02202-cdr-ancillary-nh.nc" +
-           " > score."+ ptag+"."+obsdate.strftime("%Y%m%d")+"f"+
-                                 fdate.strftime("%Y%m%d")+".csv"  )
+           " > score."+ ptag+"."+valid.strftime("%Y%m%d")+"f"+
+                                 tag.strftime("%Y%m%d")+".csv"  )
     x = os.system(cmd)
     if (x != 0):
       print("\n\n command ",cmd,"\n returned error code ",x, flush=True)
@@ -122,7 +117,7 @@ def score_nsidc(fcst_dir, nsidcdir, fdate, obsdate, exdir, fixdir):
 
 #    pole="south"
 #    ptag="s"
-#    obsname = nsidc_name(pole, obsdate, nsidcdir)
+#    obsname = nsidc_name(pole, valid, nsidcdir)
 
   else:
     print("No executable to score vs. nsidc", flush=True)

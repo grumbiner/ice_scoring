@@ -60,6 +60,29 @@ class gridded(ABC):
     def get_filename(date, basedir):
       pass
 
+#-------------- Dummy ----------------------------
+class dummy(ABC):
+
+    def get_grid(fname, date, basedir):
+      return 0
+
+    def make_edge(name, date):
+      return 0
+
+    def get_filename(date, basedir):
+      return 0
+
+#-------------- osisaf ----------------------------
+class osisaf(ABC):
+
+    def get_grid(fname, date, basedir):
+      return 0
+
+    def make_edge(name, date):
+      return 0
+
+    def get_filename(date, basedir):
+      return 0
 
 #---------- NCEP obs -----------------------------------
 class ncep(gridded):
@@ -193,7 +216,7 @@ class nsidc_nh(gridded):
     pole='north'
   
     version = "v04r00"
-    if (date <= datetime.date(2008,12,31)):
+    if (date <= datetime.datetime(2008,12,31)):
       instrument = "f13"
     else:
       instrument = "f17"
@@ -228,6 +251,7 @@ class nsidc_nh(gridded):
 
 #-----------------------------------------------------------------===
 #class nsidc_sh(gridded):
+#-----------------------------------------------------------------===
 class ims(gridded):
 
   def get_grid(self, tag, imsdir):

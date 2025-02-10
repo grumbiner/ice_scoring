@@ -20,23 +20,23 @@ export base=`pwd`
 #python
 
 #netcdf -- Hera -- update 20221006
-#module load intel/2022.1.2
-#module load impi/2022.1.2
-#module load netcdf/4.7.0
-#module use -a /contrib/anaconda/modulefiles
-#module load anaconda/latest
-#source ~/env3.7/bin/activate
+module load intel/2022.1.2
+module load impi/2022.1.2
+module load netcdf/4.7.0
+module use -a /contrib/anaconda/modulefiles
+module load anaconda/latest
+source ~/rg/env3.12c/bin/activate
 
 #netcdf -- Gaea
-module load PrgEnv-intel
-module load cray-mpich
-module load intel-classic/2022.2.1
-module load cray-hdf5
+#module load PrgEnv-intel
+#module load cray-mpich
+#module load intel-classic/2022.2.1
+#module load cray-hdf5
 # netcdf/4.9.0.3 (the current default) fails to link
-module load cray-netcdf/4.9.0.7
-export NETCDF=$NETCDF_DIR
-#export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
-source ~/env3.9/bin/activate
+#module load cray-netcdf/4.9.0.7
+#export NETCDF=$NETCDF_DIR
+##export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
+#source ~/env3.12/bin/activate
 
 # --------------  Should need no changes below here --------
 module list
@@ -77,4 +77,4 @@ mv generic score_cice_inst score_diag score_nsidc score_cfsv2 persistence nsidc_
 #Check condition of python3 and libraries
 cd ${base}
 echo python3 is in `which python3`
-python3 main_dir/checkenv.py
+python3 main_dir/check_pyenv.py

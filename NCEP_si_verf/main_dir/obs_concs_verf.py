@@ -3,8 +3,13 @@ import sys
 import datetime
 
 '''
-#Arguments:
-#   start_date verification_date forecast_dir_path
+Arguments:
+   start_date forecast_length forecast_dir_path
+
+forecast length in days (for now)
+no need to specify where verification data are as that is specified in 'platforms'
+
+Robert Grumbine 7 February 2025
 '''
 
 from verf_files import *

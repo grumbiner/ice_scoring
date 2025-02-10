@@ -5,8 +5,6 @@ Check for all the environment declarations and files needed
 
 """
 
-print("eval_env at top level", flush=True)
-
 class runtime_environment:
   exbase = ""
   exdir = ""

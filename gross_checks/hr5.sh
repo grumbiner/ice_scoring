@@ -1,8 +1,8 @@
 #!/bin/bash
 # --- Hera
-#SBATCH -J hr4
-#SBATCH -e hr4.err
-#SBATCH -o hr4.out
+#SBATCH -J hr5
+#SBATCH -e hr5.err
+#SBATCH -o hr5.out
 #SBATCH -t 5:55:00
 #SBATCH -q batch
 #SBATCH -A marine-cpu
@@ -30,8 +30,8 @@ source /home/Robert.Grumbine/rg/env3.12c/bin/activate
 
 #export modelout=$HOME/clim_data/rtofs_gross
 #export modelout=/scratch1/NCEPDEV/climate/Lydia.B.Stefanova/Models/ufs_hr1/SeaIce/
-export modelout=/home/Robert.Grumbine/clim_data/hr4/
-export modeltag=hr4
+export modelout=/home/Robert.Grumbine/clim_data/hr5/
+export modeltag=hr5
 
 #export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
 export GDIR=/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/

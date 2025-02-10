@@ -26,11 +26,12 @@
 set -xe
 #. $HOME/rgdev/toolbox/misc/python_load.wcoss2
 #. $HOME/rgdev/toolbox/misc/python_load.hera
-source /home/Robert.Grumbine/rgref/env3.12/bin/activate
+source /home/Robert.Grumbine/rg/env3.12c/bin/activate
 
 #export modelout=$HOME/clim_data/rtofs_gross
 #export modelout=/scratch1/NCEPDEV/climate/Lydia.B.Stefanova/Models/ufs_hr1/SeaIce/
 export modelout=/home/Robert.Grumbine/clim_data/hr3b/
+export modeltag=hr3b
 
 #export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
 export GDIR=/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/
@@ -47,17 +48,18 @@ export level=extremes
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/shared
 
-if [ ! -d $HOME/scratch/gross/$MODEL ] ; then
-  mkdir -p  $HOME/scratch/gross/$MODEL
+if [ ! -d $HOME/scratch/gross/$modeltag ] ; then
+  mkdir -p  $HOME/scratch/gross/$modeltag
   if [ $? -ne 0 ] ; then
-    echo zzz could not create rundir  $HOME/scratch/gross/$MODEL
+    echo zzz could not create rundir  $HOME/scratch/gross/$modeltag
     exit 1
   fi
 fi 
-cd  $HOME/scratch/gross/$MODEL
+cd  $HOME/scratch/gross/$modeltag
 
 ln -sf $GDIR/curves curves
-time $GDIR/$MODEL/${MODEL}_scan.sh
+#time $GDIR/$MODEL/${MODEL}_scan.sh
+time $GDIR/$MODEL/scan_$modeltag.sh
 
 # Now that all results have been scanned, check for errors:
 
@@ -66,9 +68,9 @@ time $GDIR/$MODEL/${MODEL}_scan.sh
 python3 $GDIR/graphics/plot_errs.py all all 16.
 
 python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all > nonphysical
-python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 32.
+python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 24.
 
 python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical > unknown
-python3 $GDIR/graphics/plot_errs.py unknown unknown 64.
+python3 $GDIR/graphics/plot_errs.py unknown unknown 32.
 
 $GDIR/$MODEL/split.sh unknown | sort -n

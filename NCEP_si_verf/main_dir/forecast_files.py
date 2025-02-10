@@ -22,7 +22,7 @@ class hr3b(verf_files.gridded):
       fname = self.get_filename(hr, fcstdir)
       if (not os.path.exists(fname)):
         retcode = 1
-        print("Do not have forecast file ",fname," for ",initial, valid, flush=True)
+        print("Do not have forecast file ",fname," for ",hr, flush=True)
       return retcode
 
     def make_edge(self, tag, hr, fcstdir, edgedir, exdir, fixdir):
@@ -35,7 +35,7 @@ class hr3b(verf_files.gridded):
       else:
         fcstin = self.get_filename(hr, fcstdir)
         if (type(fcstin) == int):
-          print("verf_files.py fcst_edge Could not find forecast for ",valid, initial, fcstdir)
+          print("verf_files.py fcst_edge Could not find forecast for ",hr, fcstdir)
           return 1
         cmd = exdir + 'find_edge_cice '+fixdir+'skip_hr ' + fcstin + ' 0.40 > ' + fname
 

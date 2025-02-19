@@ -47,11 +47,11 @@ from scores import *
 
 # HR3b, HR4, HR5 all using a winter and a summer season's forecasts
 #Winter
-start = datetime.datetime(2019,12,3)
-end   = datetime.datetime(2020,2,25)
+#start = datetime.datetime(2019,12,3)
+#end   = datetime.datetime(2020,2,25)
 #Summer
-#start = datetime.datetime(2020,6,1)
-#end   = datetime.datetime(2020,8,30)
+start = datetime.datetime(2020,6,1)
+end   = datetime.datetime(2020,8,30)
 dt = datetime.timedelta(3)
 dt1 = datetime.timedelta(1)
 
@@ -62,7 +62,8 @@ fixdir = env.fixdir
 while (tag <= end):
   print(tag)
   #fcstdir = "/home/Robert.Grumbine/clim_data/hr3b/gfs." + tag.strftime("%Y%m%d") + "/00/model_data/ice/history/"
-  fcstdir = "/home/Robert.Grumbine/clim_data/hr4/gfs." + tag.strftime("%Y%m%d") + "/00/model/ice/history/"
+  #fcstdir = "/home/Robert.Grumbine/clim_data/hr4/gfs." + tag.strftime("%Y%m%d") + "/00/model/ice/history/"
+  fcstdir = "/home/Robert.Grumbine/clim_data/hr5/gfs." + tag.strftime("%Y%m%d") + "/00/model/ice/history/"
   valid = tag
   for hr in range(6,384,24):
     #debug: print(hr, valid, flush=True)

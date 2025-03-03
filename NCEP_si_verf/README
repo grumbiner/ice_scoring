@@ -6,13 +6,25 @@ first build the mmablib -- cd ../mmablib; make
 In the NCEP_si_verf directory ./makeall.sh
 
 * You'll also need the fixed files (binaries).
+  * WCOSS: /u/Robert.Grumbine/rgdev/fix
+  * Hera:  /home/Robert.Grumbine/rg/fix
+  * Gaea:  /home/Robert.Grumbine/rg/fix
+
+* For gross checks, more detail in gross_checks/README
+  * python3 gross_ice.py   NAME_OF_ICE.nc   ctl/ice.extremes   redone.dictionary
+    * similarly for ocean.
+  * there are a number of control (ctl) files, in order of least to highest frequency of output:
+    * .extremes, .vvhigh, .vhigh, .high, .moderate
+
 
 
 Contents:
 
 Directly skill-related:
 
-main_dir  -- main .csh and python scripts to carry out model verification
+main_dir  -- main shell and python scripts to carry out model verification
+
+Components of verification:
 
 drift -- ice drift skill metrics, oriented to the old drift model (sk2) 
            using IABP for verification
@@ -43,7 +55,11 @@ Gaea: /home/Robert.Grumbine/rg/fix
  
 formats -- brief demonstrations of decoding various input file types and formats
 
+nulls -- null forecasters
+
 legacy -- archive of codes used in support of papers 1994-2017.
+
+docs -- documents (not on git)
 
 
 Robert Grumbine
@@ -51,3 +67,4 @@ Robert Grumbine
 18 Sep 2019
 12 Jun 2020
 7  Feb 2025
+3  Mar 2025

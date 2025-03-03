@@ -1,16 +1,18 @@
 Code groups
-NCEP_si_verf  -- NCEP Sea Ice Verification (Fortran, C, C++, Python)
-SIDFEx        -- submodule of SIDFEx drift verification tools (R)
+NCEP_si_verf            -- NCEP Sea Ice Verification (Fortran, C, C++, Python)
+SIDFEx                  -- submodule of SIDFEx drift verification tools (R)
 Sea-Ice-Evaluation-Tool -- submodule, Xia Lin and Francois Massonet tools (Python)
-DIAG_SUITE    -- Neil Barton tools (Python) 
+DIAG_SUITE              -- Neil Barton tools (Python) 
 
 Support:
-gross_checks      -- check for structural problems (grid seams) or impossible values ( T < -3)
-model_definitions -- 
+gross_checks      -- check for structural problems (grid seams) or 
+                         impossible values ( T < -3)
+model_definitions -- translate between models' own names and names used 
+                         in verification codes, e.g. nx vs. ni vs. nlon, 
+                         and so forth 
 mmablib           -- Library of general support code (Fortran, C, C++, Python)
 
 
-Supportive:
 exec    -- executables (not on git)
 fix     -- fixed files of use at least in NCEP verification (not on git) 
   WCOSS: /u/Robert.Grumbine/rgdev/fix

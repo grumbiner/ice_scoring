@@ -1,8 +1,12 @@
-#class for dealing with bounding curves
+'''
+class for dealing with bounding curves
+-- read_curve, inside (bool)
 
-#Robert Grumbine
-#26 April 2021
+Robert Grumbine
+26 April 2021
+'''
 
+# Notes for future
 # RG: add lightweight export to kml, import from kml
 # RG: add bounding box to curve initialization
 # RG: learn to deal with crossing dateline / variant longitude ranges 

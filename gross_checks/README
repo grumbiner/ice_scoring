@@ -1,25 +1,41 @@
-1) Run trial.csh from/for the model of interest.
-  ufs_ice    -- quarter degree UFS ice
-  ufs_ocean  -- quarter degree UFS ocean
-  rtofs      -- rtofs direct outputs
-  rtofs_cice -- cice output from rtofs
-  cice       -- consortium standard runs
-  jra        -- JRA 55 ocean reanalysis on cice consortium grids
-  giops      -- canadian Global ice-ocean prediction system
-
 0) Supporting directories:
   shared   -- python modules shared by all gross checkers
+  gross    -- python modules as a package* shared by all gross checkers
   curves   -- bounding curves for regions. Vague connection to IHO regions.
               currently includes both regions named by IHO and regions
               constructed for physical exceptions (ex: The Red Sea can 
               be much more saline than most of the ocean) or known errors 
               (UFS P7 and earlier had exceptional snow thicknesses in Weddell Sea)  
-  ctl      -- limit files, while often named for a model they should, in 
+  ctl      -- limit files, while often named for a model.  They should, in 
               principle, be of general use. Lack of generality comes from: 
               a) models changing names of the parameters 
+                     -- now resolved by use of $MODDEF and ../model_definitions/ files 
               b) model resolution -- fine resolution models can properly have more extreme values
 
-2) Further processing
+1) Per-model directories
+  decreasingly a concern, but retains unique to the item scripts and info. Mostly $MODEL_scan.sh,
+    which will scan a certain model type. Needs to be invoked by, e.g., hr5.sh 
+    (suitably edited to point to the right places)
+  giops, cice, rtofs_cice, gfs_delta, ufs_ocean, sfs, ufs_ice, rtofs
+
+1A) Results from running a scan:
+Examining output:
+If any value for a parameter on its grid violates the given limits, you'll
+get a message like:
+    hi_h        excessively high maximum  6.14912  versus  5.0  allowed
+where the 6.14 is in the grid, and you said 5.0 was the highest allowed
+  value. Otherwise, it is silent.
+
+For parameters which exceed the global bounds anywhere, a second pass
+  is made which prints out where and the values:
+parameter i j longitude tlatitude model_value test_checked test_value
+hi_h 1112 901 338.49753 70.645 5.4321904  vs pmax  5.0
+hi_h 1111 907 338.3247 71.2918 6.14912  vs pmax  5.0
+hi_h 1110 909 338.0922 71.51021 5.651512  vs pmax  5.0
+hi_h 1046 1018 312.75015 83.079865 5.1349816  vs pmax  5.0
+
+
+3) Further processing
   exceptions/ -- exceptions.py and support --> given original scan for 
                  gross errors, thin the output by applying known exceptions: 
                  a) Parameters to ignore for now (ex. ignore.params)
@@ -28,15 +44,42 @@
                  d) Known model errors (UFS likes to put too much snow in the southern Weddell Sea)
    -- While (currently) only one exception file can be applied at a time, the output of one
       run of exceptions.py can be used as input to the next.
+   -- hr5.sh illustrates applying exceptions sequentially and plotting the results
 
 
-  plot_errs.py -- takes name of a gross errors file as first argument and a figure label as second,
-                  produces plots of the locations of error points in both ij space and lat-lon space.
-                  _very_ rough
+  graphics/plot_errs.py -- takes name of a gross errors file as first 
+                              argument and a figure label as second, point size as 3rd.
+                  produces plots of the locations of error points in both 
+                              ij space and lat-lon space.  _very_ rough
 
 
 
-Additional:
-atm/atm.py  -- a start towards an atmospheric model gross checker
+Additional -----------------------------------------------
+bootstrap/atm.py  -- a start towards bootstrapping from list of variables to a limits ctl file
 statview.py -- for processing -mcProfile -o statout profiling of script
 notes/       -- additional notes
+
+
+Notes on future development for shared codes: --------
+curves.py:
+  add lightweight export to kml, import from kml
+  learn to handle crossing dateline / variant longitude ranges
+  add bounding box to curve initialization
+
+regions.py:
+  throw exception if can't open file
+  throw exception if can't read from file (empty or no points)
+
+bounds.py:
+  Improve names -- set, set_bounds, bootstrap hard to distinguish
+  Add a read_in option, for when we're confident there's a full dictionary
+
+-----------------------  Notes towards the future: -------------------
+
+Grid edge effects/checks:
+i = 0, nx; j = 0, ny
+
+Numerical artefact checks:
+Tripolar seam?
+Disk around pole divergent from rest of field?
+

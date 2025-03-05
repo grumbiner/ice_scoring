@@ -2,7 +2,7 @@
 
 #Hera:
 echo zzz HOME = $HOME
-export PYTHONPATH=/home/Robert.Grumbine/rgdev/mmablib/py:/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/shared
+export PYTHONPATH=/home/Robert.Grumbine/rgdev/mmablib/py:/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/
 export MODDEF=/home/Robert.Grumbine/rgdev/ice_scoring/model_definitions
 
 echo zzz module list
@@ -16,27 +16,18 @@ for f in 20191203 20191206 20191209 20191212 20191215 20191218 20191221 20191224
 do
   tag=$f
   j=0
-#  while [ $j -le 15 ]
-#  do
   for fhr in 006 030 054 078 102 126 150 174 198 222 246 270 294 318 342 366
   do
-    #time python3 $GDIR/ufs_ice/ufs_ice.subset.py $modelout/$f/ice$tag.01.${f}00.subset.nc \
-    #         > ice.subset.${f}.lead${j}.$level.$fhr.results
-#hr3b        $modelout/gfs.$f/00/model_data/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
-#hr4         $modelout/gfs.$f/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
-      time python3 $GDIR/ufs_ice/ufs_ice.subset.py \
+      time python3 $GDIR/universal2d.py \
              $modelout/gfs.$f/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
-             $GDIR/ufs_ice/ufs_ice.subset.$level redone \
-             > ice.subset.${f}.$level.$fhr.results
+             cice.header \
+             $GDIR/sfs.199611 redone \
+             > cice.${f}.$level.$fhr.results
   done
 
-#    j=`expr $j + 1`
-#    tag=`expr $tag + 1`
-#    tag=`/home/Robert.Grumbine/bin/dtgfix3 $tag`
-#  done
 done
 
-cat ice.subset.*.results > all
+cat cice.*.results > all
 for lead in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 do
   fhr=`expr $lead \* 24 + 6`
@@ -46,7 +37,6 @@ do
     fhr=0$fhr
   fi
 
-  #cat ice.subset.*.lead${lead}.results > all.lead.$lead
-  cat ice.subset.*.$level.$fhr.results > all.fhr.$lead
+  cat cice.*.$level.$fhr.results > all.fhr.$lead
 done
 

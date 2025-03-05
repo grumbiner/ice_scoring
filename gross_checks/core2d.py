@@ -57,7 +57,7 @@ def core_check(fname, moddef, ctl_dictionary, flying, fout = sys.stdout ):
     if (len(words) < 2):
         break
     headers[words[0]] = words[1]
-    print(words[0] , words[1])
+    #debug: print(words[0] , words[1], flush=True)
     k += 1
   
   # Acquire descriptive (e.g. nx, tlons) or support (e.g. tmask) variables
@@ -91,7 +91,8 @@ def core_check(fname, moddef, ctl_dictionary, flying, fout = sys.stdout ):
     flying_dictionary = open(flying,"w")
     flyout = True
   except:
-    #debug print("cannot write out to bootstrap dictionary file", flush=True)
+    #debug 
+    print("cannot write out to bootstrap dictionary file", flush=True)
     flyout = False
   
   

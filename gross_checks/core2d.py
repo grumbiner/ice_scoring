@@ -112,11 +112,11 @@ def core_check(fname, moddef, ctl_dictionary, flying, fout = sys.stdout ):
     tmp.set_bounds(temporary_grid, words, flyout, flying_dictionary)
   
     #Global tests -- test whether the test fails anywhere
-    gfail = tmp.whether(temporary_grid)
+    gfail = tmp.whether(temporary_grid, fout = fout)
   
     #Pointwise checks -- Show where (and which) test failed:
     if (gfail):
-      errcount += tmp.where(temporary_grid, tlats, tlons, tmask, tarea)
+      errcount += tmp.where(temporary_grid, tlats, tlons, tmask, tarea, fout = fout)
   
     parmno += 1
   

@@ -28,12 +28,15 @@ flying = sys.argv[4]
 errcount = 0
 
 for memno in range(0,11):
-  for hh in range(24, 24*124, 24):
+    # SFS: for hh in range(24, 24*124, 24):
+  for hh in range(24, 24*48, 24):
     fname = base + '00/mem' + "{:03d}".format(memno) + '/model/ice/history/gefs.ice.t00z.24hr_avg.f' + "{:03d}".format(hh) + '.nc'
     if (os.path.exists(fname)):
         print(fname)
         foutname = "grossout_" + "{:03d}".format(memno)+"_"+"{:03d}".format(hh)
-        errcount += core_check(fname, moddef, ctl_dictionary, flying)
+        fout = open(foutname, "w")
+        errcount += core_check(fname, moddef, ctl_dictionary, flying, fout = fout)
+        fout.close()
     else:
         print('not ',fname)
 

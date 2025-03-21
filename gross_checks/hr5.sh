@@ -32,6 +32,7 @@ source /home/Robert.Grumbine/rg/env3.12c/bin/activate
 #export modelout=/scratch1/NCEPDEV/climate/Lydia.B.Stefanova/Models/ufs_hr1/SeaIce/
 export modelout=/home/Robert.Grumbine/clim_data/hr5/
 export modeltag=hr5
+export MODEL=ufs_ice
 
 #export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
 export GDIR=/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/
@@ -40,7 +41,6 @@ export GDIR=/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/
 #------------------------ General across platforms --------------
 set -x
 
-export MODEL=ufs_ice
 export level=extremes
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/shared

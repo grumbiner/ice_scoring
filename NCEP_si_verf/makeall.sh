@@ -20,23 +20,24 @@ export base=`pwd`
 #python
 
 #netcdf -- Hera -- update 20221006
-module load intel/2022.1.2
-module load impi/2022.1.2
-module load netcdf/4.7.0
-module use -a /contrib/anaconda/modulefiles
-module load anaconda/latest
-source ~/rg/env3.12c/bin/activate
+#module load intel/2022.1.2
+#module load impi/2022.1.2
+#module load netcdf/4.7.0
+#module use -a /contrib/anaconda/modulefiles
+#module load anaconda/latest
+#source ~/env3.7/bin/activate
 
 #netcdf -- Gaea
-#module load PrgEnv-intel
+module load PrgEnv-cray
 #module load cray-mpich
-#module load intel-classic/2022.2.1
-#module load cray-hdf5
-# netcdf/4.9.0.3 (the current default) fails to link
-#module load cray-netcdf/4.9.0.7
-#export NETCDF=$NETCDF_DIR
-##export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
-#source ~/env3.12/bin/activate
+#module load intel-classic
+module load cce/18.0.0
+module load cray-libsci/24.07.0
+module load cray-hdf5/1.14.3.1
+module load cray-netcdf/4.9.0.13
+export NETCDF=$NETCDF_DIR
+#export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
+source ~/env3.9/bin/activate
 
 # --------------  Should need no changes below here --------
 module list

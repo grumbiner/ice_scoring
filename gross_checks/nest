@@ -1,0 +1,2 @@
+export PYTHONPATH=$PYTHONPATH:~/rgdev/ice_scoring/gross_checks/shared
+source ~/rg/env3.12c/bin/activate

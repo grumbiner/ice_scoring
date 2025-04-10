@@ -19,7 +19,7 @@ lon = []
 lat = []
 
 for line in fin:
-  if ("pm" in line):
+  #if ("pm" in line):
     words = line.split()
     try:
       tp = (words[0].split(":"))[1]
@@ -85,7 +85,7 @@ else:
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
 # not on hera: ax.coastlines()
 ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="c") )
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize)
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = 0.2/25)
 plt.savefig("ll_errs_"+title_tag+".png")
 plt.close()
 

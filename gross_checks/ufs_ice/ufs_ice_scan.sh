@@ -2,8 +2,8 @@
 
 #Hera:
 echo zzz HOME = $HOME
-export PYTHONPATH=/home/Robert.Grumbine/rgdev/mmablib/py:/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/
-export MODDEF=/home/Robert.Grumbine/rgdev/ice_scoring/model_definitions
+export PYTHONPATH=$HOME/rgdev/mmablib/py:$HOME/rgdev/ice_scoring/gross_checks/
+export MODDEF=$HOME/rgdev/ice_scoring/model_definitions
 
 echo zzz module list
 module list
@@ -12,18 +12,39 @@ set -x
 
 export level=extremes
 
-for f in 20191203 20191206 20191209 20191212 20191215 20191218 20191221 20191224 20191227 20191230 20200102 20200105 20200108 20200111 20200114 20200117 20200120 20200123 20200126 20200129 20200201 20200204 20200207 20200210 20200213 20200216 20200219 20200222 20200225 20200601 20200604 20200607 20200610 20200613 20200616 20200619 20200622 20200625 20200628 20200701 20200704 20200707 20200710 20200713 20200716 20200719 20200722 20200725 20200728 20200731 20200803 20200806 20200809 20200812 20200815 20200818 20200821 20200824 20200827 20200830
+for f in 20230423 20230424 20230425 20230426 20230427 20230428
 do
   tag=$f
+  yy=`echo $f | cut -c1-4`
+  mm=`echo $f | cut -c5-6`
+  dd=`echo $f | cut -c7-8`
   j=0
-  for fhr in 006 030 054 078 102 126 150 174 198 222 246 270 294 318 342 366
-  do
+  if [ -d $modelout/gdas.$tag ] ; then
+    for fhr in 003 006 009
+    do
+        time python3 $GDIR/universal2d.py \
+               $modelout/gdas.$tag/00/model/ice/history/gdas.ice.t00z.inst.f${fhr}.nc \
+               cice.header \
+               $GDIR/sfs.199611 redone \
+               > gdas.cice.${f}.$level.$fhr.results
+    done
+  fi
+  if [ -d $modelout/gfs.$tag ] ; then
+    #for fhr in 006 012 
+    fhr=006
+    while [ $fhr -le 240 ]
+    do
       time python3 $GDIR/universal2d.py \
-             $modelout/gfs.$f/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
+             $modelout/gfs.$tag/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
              cice.header \
              $GDIR/sfs.199611 redone \
-             > cice.${f}.$level.$fhr.results
-  done
+             > gfs.cice.${f}.$level.$fhr.results
+      fhr=`expr $fhr + 6`
+      if [ $fhr -le 100 ] ; then
+	fhr=0$fhr
+      fi
+    done
+  fi
 
 done
 
@@ -40,3 +61,4 @@ do
   cat cice.*.$level.$fhr.results > all.fhr.$lead
 done
 
+#             $modelout/gfs.$f/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \

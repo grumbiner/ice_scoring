@@ -1,0 +1,7 @@
+nx xh
+ny yh
+TLON  geolon
+TLAT  geolat
+ULON  geolon_u
+ULAT  geolat_u
+tmask land

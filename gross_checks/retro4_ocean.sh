@@ -1,7 +1,7 @@
 #!/bin/bash
 #--- WCOSS2
-#PBS -N ufs_ice_eval
-#PBS -o ufs_ice_eval
+#PBS -N ufs_ocean_eval
+#PBS -o ufs_ocean_eval
 #PBS -j oe
 #PBS -A ICE-DEV
 #PBS -l walltime=4:00:00
@@ -31,8 +31,8 @@ source $HOME/env3.12/bin/activate
 
 #export modelout=$HOME/clim_data/rtofs_gross
 export modelout=$HOME/noscrub/retros/
-export modeltag=ufs_ice
-export MODEL=ufs_ice
+export modeltag=ufs_ocean
+export MODEL=ufs_ocean
 
 #export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
 export GDIR=$HOME/noscrub/retros/gross_checks/
@@ -63,10 +63,10 @@ time $GDIR/$MODEL/${MODEL}_scan.sh
 #    so make pts larger
 python3 $GDIR/graphics/plot_errs.py all all 12.
 
-python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all > nonphysical
+python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.mom6 all > nonphysical
 python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 16.
 
-python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical > unknown
+python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.ocean.exceptions nonphysical > unknown
 python3 $GDIR/graphics/plot_errs.py unknown unknown 24.
 
 $GDIR/$MODEL/${MODEL}_split.sh unknown | sort -n

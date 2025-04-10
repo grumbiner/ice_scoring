@@ -63,10 +63,10 @@ time $GDIR/$MODEL/${MODEL}_scan.sh
 #    so make pts larger
 python3 $GDIR/graphics/plot_errs.py all all 16.
 
-python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all > nonphysical
+python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.mom6 all > nonphysical
 python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 24.
 
-python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical > unknown
+python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.ocean.exceptions nonphysical > unknown
 python3 $GDIR/graphics/plot_errs.py unknown unknown 32.
 
 $GDIR/$MODEL/split.sh unknown | sort -n

@@ -19,7 +19,7 @@ lon = []
 lat = []
 
 for line in fin:
-  #if ("pm" in line):
+  if ("pm" in line):
     words = line.split()
     try:
       tp = (words[0].split(":"))[1]

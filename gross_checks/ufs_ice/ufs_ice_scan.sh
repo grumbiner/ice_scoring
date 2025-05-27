@@ -10,7 +10,7 @@ set -x
 
 export level=extremes
 
-for f in 20230423 20230424 20230425 20230426 20230427 20230428
+for f in 20241116 20241117 20241118 20241119
 do
   tag=$f
   yy=`echo $f | cut -c1-4`

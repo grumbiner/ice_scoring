@@ -61,12 +61,25 @@ time $GDIR/$MODEL/${MODEL}_scan.sh
 
 # For plots, last number is dot size. Expect fewer pts as go down list, 
 #    so make pts larger
-python3 $GDIR/graphics/plot_errs.py all all 12.
+for model in gfs gdas
+do
+  python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
 
-python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all > nonphysical
-python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 16.
+  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all.$model > nonphysical.$model
+  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 16.
 
-python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical > unknown
-python3 $GDIR/graphics/plot_errs.py unknown unknown 24.
+  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
+  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 24.
+done
 
-$GDIR/$MODEL/${MODEL}_split.sh unknown | sort -n
+for model in gfs gdas
+do
+  $GDIR/$MODEL/${MODEL}_split.sh unknown.$model | sort -n
+  mkdir $model
+  for f in *.s
+  do
+    python3 $GDIR/graphics/plot_errs.py $f $f 24
+  done
+  mv *.png *.s $model
+done
+

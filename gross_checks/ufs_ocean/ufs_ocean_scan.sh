@@ -13,7 +13,7 @@ set -x
 
 export level=extreme
 export base=202411
-for d in 16 17 18 19
+for d in 16 17 18 19 20 21 22 23 24
 do
   f=$base$d
   tag=$f

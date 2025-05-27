@@ -10,7 +10,7 @@ set -x
 
 export level=extremes
 
-for f in 20241116 20241117 20241118 20241119
+for f in 20241116 20241117 20241118 20241119 20241120 20241121 20241122 20241123 20241124
 do
   tag=$f
   yy=`echo $f | cut -c1-4`
@@ -46,8 +46,9 @@ do
 
 done
 
-cat cice.*.results > all
-for lead in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+model=gfs
+cat ${model}.cice.*.results > all.$model
+for lead in 0 1 2 3 4 5 6 7 8 9 
 do
   fhr=`expr $lead \* 24 + 6`
   if [ $fhr -lt 10 ] ; then
@@ -56,7 +57,13 @@ do
     fhr=0$fhr
   fi
 
-  cat cice.*.$level.$fhr.results > all.fhr.$lead
+  cat ${model}.cice.*.$level.$fhr.results > all.${model}.$fhr
 done
 
-#             $modelout/gfs.$f/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
+model=gdas
+cat ${model}.cice.*.results > all.$model
+for fhr in 003 006 009
+do
+  cat ${model}.cice.*.$level.$fhr.results > all.${model}.$fhr
+done
+

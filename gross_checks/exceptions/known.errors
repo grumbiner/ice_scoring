@@ -1,7 +1,12 @@
-Archipelago_snow      hi        0.6  35.0    0.25  1.0         Known Error -- rtofs_cice
-Greenland_snow        snow_ai   0.0   1.0    0.25  0.4         Known Error -- rtofs_cice
-Antarctic_snow        hs        0.6   3.1    0.25  1.0         Known Error -- rtofs_cice
-Mauritania_saline     sss      41.0  49.5   39.0  40.0         Known Error -- rtofs_cice
-NileDelta_saline      sss      41.0  46.0   35.0  40.0         Known Error -- rtofs_cice
-Weddell_snow          hs        0.6   2.9    0.25  1.0         Known Error -- rtofs_cice
-Archipelago_snow      strength  2.e5 2.e6    2.e4  2.5e5       Known Error -- rtofs_cice
+Globe              sitempbot_h  -2.e12   0.     250.   270.       UFS CICE
+Globe              sitempsnic_h -2.e12   3.e6   250.   270.       UFS CICE
+Globe              fswabs_h    500.0   800.0      1.    20.       UFS CICE
+Globe              frzmlt_h     -2.e6    5.e3  -200.   200.       UFS CICE
+Globe              flwup_h      -1.e12  -3.e2   200.   300.       UFS CICE
+Archipelago_snow   hi            0.6    35.0    0.25  1.0         Known Error -- rtofs_cice
+Greenland_snow     snow_ai       0.0     1.0    0.25  0.4         Known Error -- rtofs_cice
+Antarctic_snow     hs            0.6     3.1    0.25  1.0         Known Error -- rtofs_cice
+Mauritania_saline  sss          41.0    49.5   39.0  40.0         Known Error -- rtofs_cice
+NileDelta_saline   sss          41.0    46.0   35.0  40.0         Known Error -- rtofs_cice
+Weddell_snow       hs            0.6     2.9    0.25  1.0         Known Error -- rtofs_cice
+Archipelago_snow   strength      2.e5    2.e6    2.e4  2.5e5      Known Error -- rtofs_cice

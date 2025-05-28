@@ -33,6 +33,9 @@ for line in fin:
     lat.append(tll)
 
 print("found ",len(i)," error points")
+if (len(i) == 0):
+    exit(1)
+
 #debug print(max(lat), min(lat), max(lon), min(lon) )
 latmax = max(lat)
 latmin = min(lat)

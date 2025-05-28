@@ -97,11 +97,10 @@ do
   fi
   for f in *.s
   do
-    python3 $GDIR/graphics/plot_errs.py $f $f 4
+    python3 $GDIR/graphics/plot_errs.py $f $f 12
   done
   mv *.png *.s $model
 # ------------------ copy to desk for pseudo-web
   cd $model
-  scp -p *.png rmg3@emc-lw-rgrumbi:website/retro/9/ufs_ocean/gfs
+  scp -p *.png rmg3@emc-lw-rgrumbi:website/retro/9/ufs_ocean/$model
 done
-

@@ -65,21 +65,28 @@ for model in gfs gdas
 do
   python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
 
-  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all.$model > nonphysical.$model
-  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 16.
+  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$model all.$model > nonphysical.$model
+  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12.
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
-  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 24.
+  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12.
 done
 
 for model in gfs gdas
 do
   $GDIR/$MODEL/${MODEL}_split.sh unknown.$model | sort -n
-  mkdir $model
+  if [ ! -d $model ] ; then
+    mkdir $model
+  fi
   for f in *.s
   do
-    python3 $GDIR/graphics/plot_errs.py $f $f 24
+    python3 $GDIR/graphics/plot_errs.py $f $f 12
   done
+
   mv *.png *.s $model
+  cd $model
+  scp -p *.png rmg3@emc-lw-rgrumbi:website/retro/9/ufs_ice/$model
+  cd ..
+
 done
 

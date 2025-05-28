@@ -44,5 +44,5 @@ done
 cat gfs.ocean.*.results > all.gfs
 #cat gdas.ocean.*.results > all.gdas
 #cat all.gfs all.gdas > all
-cp all.gfs all
+#cp all.gfs all
 

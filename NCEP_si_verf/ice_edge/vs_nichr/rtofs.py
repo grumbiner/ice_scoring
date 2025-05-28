@@ -38,7 +38,7 @@ if (not os.path.exists(fixdir+"/skip_hr") ):
 dbase="/u/robert.grumbine/noscrub/model_intercompare/rtofs_cice/rtofs."
 
 dt    = datetime.timedelta(1)
-start = datetime.datetime(2025,3,1)
+start = datetime.datetime(2025,4,1)
 end   = datetime.datetime.today()
 end  -= 8*dt
 #end = datetime.datetime(2023,7,1)
@@ -55,7 +55,7 @@ while (start <= end):
   # looks like n00 refers to the day before the nominal analysis time
   nlead=0
   for lead in ("n00", "f24", "f48", "f72", "f96", "f120", "f144", "f168", "f192"):
-    fname   = dbase+start.strftime("%Y%m%d")+"/rtofs_glo.t00z."+lead+".cice_inst"
+    fname   = dbase+start.strftime("%Y%m%d")+"/rtofs_glo.t00z."+lead+".cice_inst.nc"
 
     valid_dy = valid.strftime("%03j")
     yy       = valid.strftime("%Y")

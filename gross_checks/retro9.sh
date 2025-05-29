@@ -21,7 +21,7 @@
 # --- Hera
 
 
-set -xe
+set -x
 
 
 # Hera:
@@ -41,7 +41,7 @@ export GDIR=$HOME/noscrub/retros/gross_checks/
 #------------------------ General across platforms --------------
 set -x
 
-export level=extremes
+export level=extreme
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/shared
 
@@ -65,7 +65,7 @@ for model in gfs gdas
 do
   python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
 
-  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$model all.$model > nonphysical.$model
+  python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$modeltag all.$model > nonphysical.$model
   python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12.
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model

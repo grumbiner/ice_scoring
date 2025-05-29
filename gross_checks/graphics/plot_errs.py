@@ -34,7 +34,7 @@ for line in fin:
 
 print("found ",len(i)," error points")
 if (len(i) == 0):
-    exit(1)
+    exit(0)
 
 #debug print(max(lat), min(lat), max(lon), min(lon) )
 latmax = max(lat)

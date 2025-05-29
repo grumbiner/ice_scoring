@@ -21,7 +21,7 @@
 # --- Hera
 
 
-set -xe
+set -x
 
 
 # Hera:
@@ -41,7 +41,7 @@ export GDIR=$HOME/noscrub/retros/gross_checks/
 #------------------------ General across platforms --------------
 set -x
 
-export level=extremes
+export level=extreme
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/shared
 

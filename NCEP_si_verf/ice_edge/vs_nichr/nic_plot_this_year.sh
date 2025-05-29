@@ -6,7 +6,7 @@ echo zzz nic_plot_this_year.sh
 year=`date +"%Y"`
 cd $HOME/rgdev/edges/
 
-. $HOME/rgdev/toolbox/misc/python_load.wcoss2
+source $HOME/env3.12/bin/activate
 
 for lead in 1 2 3 4 5 6 7 8 10 16
 do

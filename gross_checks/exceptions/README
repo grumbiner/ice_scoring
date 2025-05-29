@@ -21,4 +21,4 @@ Note: More efficient if most common exceptions are listed first.
 
 * ignore.tropics -- per name. Has parm = all to ignore all parameters in the region.
 
-* ice.extremes  -- Adding 'Globe' to the start of each line in a bounds control file allows you to see the effect of widening the allowed ranges
+* ice.extreme  -- Adding 'Globe' to the start of each line in a bounds control file allows you to see the effect of widening the allowed ranges

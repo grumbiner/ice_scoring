@@ -24,7 +24,7 @@ date
 tag=`date +"%Y%m%d"`
 tag=20221031
 
-#level=extremes
+#level=extreme
 level=high
 
 set +e

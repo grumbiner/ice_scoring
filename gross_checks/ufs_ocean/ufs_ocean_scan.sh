@@ -12,11 +12,10 @@ module list
 set -x
 
 export level=extreme
-
-#for d in 3 4 5 6 7 
-for d in 3 4 5 6 7 
+export base=202411
+for d in 16 17 18 19 20 21 22 23 24
 do
-  f=2023042$d
+  f=$base$d
   tag=$f
   j=0
   #gdas -- 3d fields only
@@ -45,5 +44,5 @@ done
 cat gfs.ocean.*.results > all.gfs
 #cat gdas.ocean.*.results > all.gdas
 #cat all.gfs all.gdas > all
-cp all.gfs all
+#cp all.gfs all
 

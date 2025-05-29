@@ -10,7 +10,7 @@ module list
 
 set -x
 
-export level=extremes
+export level=extreme
 
 for f in 2023041712
 do

@@ -8,7 +8,7 @@ module list
 
 set -x
 
-export level=extremes
+export level=extreme
 
 for f in 20241116 20241117 20241118 20241119 20241120 20241121 20241122 20241123 20241124
 do

@@ -22,7 +22,7 @@ while (tag <= end):
   dd = tag.strftime("%d")
   fname = ICE_RUNDIR+"/iceh."+yy+'-'+mm+'-'+dd+'.nc'
   if (os.path.exists(fname)):
-    print("python3 retry.py ",fname," ./cice.extremes alpha > out."+tag.strftime("%Y%m%d") )
+    print("python3 retry.py ",fname," ./cice.extreme alpha > out."+tag.strftime("%Y%m%d") )
 
   tag += dt
 

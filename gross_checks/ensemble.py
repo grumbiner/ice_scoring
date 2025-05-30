@@ -28,9 +28,15 @@ flying = sys.argv[4]
 errcount = 0
 
 for memno in range(0,11):
-    # SFS: for hh in range(24, 24*124, 24):
+  # SFS: for hh in range(24, 24*124, 24):
+  # GEFS v13: 48 days:
   for hh in range(24, 24*48, 24):
-    fname = base + '00/mem' + "{:03d}".format(memno) + '/model/ice/history/gefs.ice.t00z.24hr_avg.f' + "{:03d}".format(hh) + '.nc'
+    #ice: 
+    #fname = base + '00/mem' + "{:03d}".format(memno) + '/model/ice/history/gefs.ice.t00z.24hr_avg.f' + "{:03d}".format(hh) + '.nc'
+
+    #ocean: 
+    fname = base + '00/mem' + "{:03d}".format(memno) + '/products/ocean/netcdf/0p25/gefs.ocean.t00z.0p25.f' + "{:03d}".format(hh) + '.nc'
+
     if (os.path.exists(fname)):
         print(fname)
         foutname = "grossout_" + "{:03d}".format(memno)+"_"+"{:03d}".format(hh)
@@ -39,5 +45,4 @@ for memno in range(0,11):
         fout.close()
     else:
         print('not ',fname)
-
 

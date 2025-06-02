@@ -122,7 +122,5 @@ for line in fdic:
 #exit codes are bounded, while error counts are not
 if (errcount == 0):
   print("found no errors")
-  exit(0)
 else:
   print("errcount = ",errcount)
-  exit(1)

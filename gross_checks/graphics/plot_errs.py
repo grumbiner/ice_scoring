@@ -97,4 +97,4 @@ plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alph
 plt.savefig("ll_errs_"+title_tag+".png")
 plt.close()
 
-print(markersize)
+#debug: print(markersize)

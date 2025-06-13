@@ -1,0 +1,7 @@
+nx grid_xt
+ny grid_yt
+TLON  lon
+TLAT  lat
+ULON  lon
+ULAT  lat
+tmask land

@@ -7,9 +7,9 @@ module load python
 module load netcdf
 
 export PYTHONPATH=$PYTHONPATH:$HOME/rgdev/ice_scoring/NCEP_si_verf/ice_edge
-export EXDIR=$HOME/rgdev/ice_scoring/exec
-export FIXDIR=$HOME/rgdev/fix/
+export EXDIR=$HOME/rgdev/ice_scoring/NCEP_si_verf/exec
 export OBSDIR=$HOME/rgdev/edges
+export FIXDIR=$HOME/rg/fix/
 
 base=$HOME/rgdev/ice_scoring/NCEP_si_verf/ice_edge/vs_nichr
 

@@ -117,11 +117,11 @@ void  get_nc(char *fname, grid2<float> &lat, grid2<float> &lon, grid2<float> &ai
   retval = nc_get_var_float(ncid, varid, x); if (retval != 0) ERR(retval); 
   enter(lon, x);
 
-  retval = nc_inq_varid(ncid, "aice", &varid); if (retval != 0) ERR(retval);
+  retval = nc_inq_varid(ncid, "aice_h", &varid); if (retval != 0) ERR(retval);
   retval = nc_get_var_float(ncid, varid, x); if (retval != 0) ERR(retval); 
   enter(aice, x);
 
-  retval = nc_inq_varid(ncid, "hi", &varid); if (retval != 0) ERR(retval);
+  retval = nc_inq_varid(ncid, "hi_h", &varid); if (retval != 0) ERR(retval);
   retval = nc_get_var_float(ncid, varid, x); if (retval != 0) ERR(retval); 
   enter(hi, x);
 

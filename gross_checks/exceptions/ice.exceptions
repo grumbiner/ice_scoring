@@ -1,0 +1,46 @@
+Globe                 sitempbot_h -2.e11 0.0     0.0  0.0   Known Error
+Globe                 sitemptop_h -2.e11 0.0     0.0  0.0   Known Error
+Globe                 sitempsnic_h -2.e11 0.0     0.0  0.0   Known Error
+Globe                 sitempsnic_h 2.e4 2.e11     0.0  0.0   Known Error
+Gulf_Ob               sss_h     0.0  15.0        1.0  12.0         Physical
+Gulf_of_Finland       sss_h     0.0  15.0        1.0  12.0         Physical
+Gulf_of_Bothnia       sss_h     0.5  15.0        1.0  12.0         Physical
+Kara_fresh            sss_h     0.0  15.0        1.0   4.0         Physical
+Persian_Gulf          sss_h    35.0  47.0       35.0  40.0         Physical
+Gulf_of_Suez          sss_h    35.0  43.0       37.0  38.0         Physical
+Amazon_Outflow        sss_h     0.0  15.0        1.0  12.0         Physical
+Laptev_fresh          sss_h     0.0  15.0        1.0  12.0         Physical
+Rio_de_La_Plata       sss_h     0.0  15.0        1.0  12.0         Physical
+Yangtze_Outflow       sss_h     0.0  15.0        1.0  12.0         Physical
+Ganges_Delta          sss_h     0.0  15.0        1.0  12.0         Physical
+Sea_of_Azov_fresh     sss_h     0.0  15.0        1.0   4.0         Physical
+Mackenzie_Outflow     sss_h     0.0  15.0        1.0  12.0         Physical
+East_Siberian_fresh   sss_h     0.0  15.0        1.0  12.0         Physical
+Gulf_of_Riga          sss_h     0.0  15.0        1.0   4.0         Physical
+White_Sea             sss_h     0.0  15.0        1.0   4.0         Physical
+Spencer_Gulf          sss_h    35.0  43.0       20.0  37.0         Physical
+Shark_Bay             sss_h    40.0  48.0       20.0  37.0         Physical
+Amur_Outflow          sss_h     0.0  15.0        1.0  12.0         Physical
+Pechora_Sea           sss_h     0.0  15.0        1.0  12.0         Physical
+Baltic_Sea            sss_h     0.0  15.0        1.0  10.0         Physical
+Orinoco_Outflow       sss_h     0.0  15.0        1.0  12.0         Physical
+Mississippi_Outflow   sss_h     0.0  15.0        1.0  12.0         Physical
+YK_Delta              sss_h     0.0  15.0        1.0   4.0         Physical
+Delaware_Bay          sss_h     0.0  15.0        1.0  12.0         Physical
+Red_Sea               sss_h    35.0  42.0       37.0  38.0         Physical
+Somali_Current        uvel_h    -2.75  2.75      -1.5   1.5         Physical
+Somali_Current        vvel_h    -2.75  2.75      -1.5   1.5         Physical
+N_equatorial_current  uvel_h    -3.5   3.2       -2.0  -1.0         Physical
+N_equatorial_current  vvel_h    -3.5   3.2       -2.0  -1.0         Physical
+Gulf_Stream           vvel_h    -3.5   3.5        0.2   0.8         Physical
+Gulf_Stream           uvel_h    -3.5   3.5        0.2   0.8         Physical
+Agulhas               vvel_h    -2.75  3.25       0.2   0.8         Physical
+Agulhas               uvel_h    -2.75  3.25       0.2   0.8         Physical
+Kuroshio_Separate     vvel_h    -2.75  3.5       -1.5   1.0         Physical
+Kuroshio_Separate     uvel_h    -2.75  3.5       -1.5   1.0         Physical
+Kuroshio_Start        vvel_h    -2.75  3.5       -1.5   1.0         Physical
+Kuroshio_Start        uvel_h    -2.75  3.5       -1.5   1.0         Physical
+Brazil_current        vvel_h    -3.75  3.75      -1.5   1.5         Physical
+Brazil_current        uvel_h    -3.75  3.75      -1.5   1.5         Physical
+Kuroshio2             vvel_h    -2.75  3.5       -1.5   1.0         Physical
+Spencer_Gulf          sss_h    35.0  43.0       20.0   37.0         Physical

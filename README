@@ -1,59 +1,22 @@
-I'm using this as a catch-all for sea ice model skill measure files.
+Code groups
+NCEP_si_verf            -- NCEP Sea Ice Verification (Fortran, C, C++, Python)
+SIDFEx                  -- submodule of SIDFEx drift verification tools (R)
+Sea-Ice-Evaluation-Tool -- submodule, Xia Lin and Francois Massonet tools (Python)
+DIAG_SUITE              -- Neil Barton tools (Python) 
 
-Quick start:
-* To build the executables:
-first build the mmablib -- cd ../mmablib; make
-In the ice_scoring main directory ./makeall.sh
-* You'll also need the fixed files (binaries).
-
-
-Contents:
-
-Directly skill-related:
-
-main  -- main .csh and python scripts to carry out model verification
-
-drift -- ice drift skill metrics, oriented to the old drift model (sk2) 
-           using IABP for verification
-      ---- these are relatively well-developed as metrics, see TN NNN, MMM for discussion
-
-concentration -- metrics for measuring skill in sea ice concentration fields, 
-                   the whole field, not just the edge
- 
-ice_edge -- find ice edge from an ice concentration analysis using transition 
-              against a tolerance
-         -- score a pair of ice edges
-         -- algorithms per discussions with Rick Allard (NRL) and Barbara Casati (ECCC)
-
-thickness -- to be intercomparisons on sea ice thickness
-
-integral -- for ice area and extent, within regions
+Support:
+gross_checks      -- check for structural problems (grid seams) or 
+                         impossible values ( T < -3)
+model_definitions -- translate between models' own names and names used 
+                         in verification codes, e.g. nx vs. ni vs. nlon, 
+                         and so forth 
+mmablib           -- Library of general support code (Fortran, C, C++, Python)
 
 
-
-Supportive:
 exec    -- executables (not on git)
-
-fix      -- fixed files of use (not on git) 
--- binary files not on github. Copy or use (ln -s)
-WCOSS: /u/Robert.Grumbine/rgdev/fix
-Hera: /home/Robert.Grumbine/rgdev/fix
-Orion: /home/rgrumbin/rgdev/fix
+fix     -- fixed files of use at least in NCEP verification (not on git) 
+  WCOSS: /u/Robert.Grumbine/rgdev/fix
+  Hera: /home/Robert.Grumbine/rgdev/fix
+  Gaea: /home/Robert.Grumbine/rg/fix
+  Orion: /home/rgrumbin/rgdev/fix
  
-
-gross_checks -- check for structural problems (grid seams) or impossible values ( T < -3)
-
-docs -- documents on ice model scoring
-
-formats -- brief demonstrations of decoding various input file types and formats
-
-legacy -- archive of codes used in support of papers 1994-2017.
-
-sidfex  -- Sea Ice Dynamics Forecast Experiment support files/scripts
-
-web -- towards web display of scores
-
-Robert Grumbine
-22 May 2018
-18 Sep 2019
-12 Jun 2020

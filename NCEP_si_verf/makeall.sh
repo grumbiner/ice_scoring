@@ -19,6 +19,13 @@ export base=`pwd`
 #module load netcdf/4.7.4 #4.7.2-parallel, pnetcdf/1.12.0
 #python
 
+#netcdf -- ursa -- update 20221006
+module load hpc-x/2.18.1-icc
+module load netcdf-c/4.9.2
+module load netcdf-fortran/4.6.1
+export NETCDF=$NETCDF_C_ROOT
+source $HOME/env3.11/bin/activate
+
 #netcdf -- Hera -- update 20221006
 #module load intel/2022.1.2
 #module load impi/2022.1.2
@@ -28,15 +35,16 @@ export base=`pwd`
 #source ~/env3.7/bin/activate
 
 #netcdf -- Gaea
-module load PrgEnv-intel
-module load cray-mpich
-module load intel-classic/2022.2.1
-module load cray-hdf5
-# netcdf/4.9.0.3 (the current default) fails to link
-module load cray-netcdf/4.9.0.7
-export NETCDF=$NETCDF_DIR
-#export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
-source ~/env3.9/bin/activate
+#module load PrgEnv-cray
+#module load cray-mpich
+#module load intel-classic
+#module load cce/18.0.0
+#module load cray-libsci/24.07.0
+#module load cray-hdf5/1.14.3.1
+#module load cray-netcdf/4.9.0.13
+#export NETCDF=$NETCDF_DIR
+##export PATH=/ncrc/home1/Robert.Grumbine/anaconda3/bin:$PATH
+#source ~/env3.9/bin/activate
 
 # --------------  Should need no changes below here --------
 module list
@@ -60,6 +68,7 @@ fi
 set -xe
 #ice_edge : 
 cd ${base}/ice_edge/C
+export CXX=icpx
 make
 mv cscore_edge find_edge_ims find_edge_cfsv2 find_edge_cice find_edge_consortium find_edge_ncep find_edge_nrl find_edge_nsidc_north find_edge_nsidc_south ${EXDIR}
 
@@ -77,4 +86,4 @@ mv generic score_cice_inst score_diag score_nsidc score_cfsv2 persistence nsidc_
 #Check condition of python3 and libraries
 cd ${base}
 echo python3 is in `which python3`
-python3 main_dir/checkenv.py
+python3 main_dir/check_pyenv.py

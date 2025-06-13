@@ -1,6 +1,7 @@
 #  Already present(?)
 #calendar
 #csv
+#datetime
 #glob
 #importlib
 #math
@@ -11,7 +12,6 @@
 #pkgutil 
 
 #Very likely present
-datetime
 numpy 
 
 #Less likely
@@ -19,8 +19,5 @@ matplotlib
 netCDF4
 scipy
 
-geographiclib
-
-#
 cartopy
 

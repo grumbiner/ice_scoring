@@ -51,7 +51,7 @@ matplotlib.use('Agg') #for batch mode
 # argv[1] = date, 2-N = paths
 basedate = sys.argv[1]
 
-lead = 35
+lead = 15
 dt = datetime.timedelta(1)
 
 #date from 8:
@@ -73,28 +73,25 @@ print(days)
 fname1 = sys.argv[2]
 fname2 = sys.argv[3]
 fname3 = sys.argv[4]
-nhreader(lead, start_date, fname1, 0.15, threat, score1)
-nhreader(lead, start_date, fname2, 0.15, threat, score2)
-nhreader(lead, start_date, fname3, 0.15, threat, score3)
+crit = float(sys.argv[5])
+nhreader(lead, start_date, fname1, crit, threat, score1)
+nhreader(lead, start_date, fname2, crit, threat, score2)
+nhreader(lead, start_date, fname3, crit, threat, score3)
 print(score1)
 print(score2)
 print(score3)
 
-fname4 = sys.argv[5]
-nhreader(lead, start_date, fname4, 0.15, threat, score4)
-print(score4)
 
 #Now ready to plot:
 upper = 1.0
 lower = 0.60
 fig,ax = plt.subplots()
 ax.set(xlabel = "Forecast lead, days", ylabel = "threat score [0:1]")
-ax.set(title = "Splice for "+basedate+" critical level = 0.15 vs. NSIDC CDR")
+ax.set(title = "Splice for "+basedate+" critical level = "+"{:.2f}".format(crit) +" vs. NSIDC CDR")
 plt.ylim(lower, upper)
-ax.plot(days, score1, color="red", label = "p3.1")
-ax.plot(days, score2, color="blue", label = "p5.0")
-ax.plot(days, score3, color="green", label = "p6.0")
-ax.plot(days, score4, color="black", label = "persistence")
+ax.plot(days, score1, color="red", label = "hr3b")
+ax.plot(days, score2, color="blue", label = "hr4")
+ax.plot(days, score3, color="green", label = "hr5")
 ax.legend()
 ax.grid()
 plt.savefig("splice_"+basedate+".png")

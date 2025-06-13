@@ -8,7 +8,7 @@ export DCOM=~/rgdev/edges
 cd $DCOM
 
 #Drop back date
-yy=2023
+yy=2024
 ddd=300
 
 if [ ! -d cleaned ] ; then

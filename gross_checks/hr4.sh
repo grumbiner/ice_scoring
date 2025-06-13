@@ -26,11 +26,12 @@
 set -xe
 #. $HOME/rgdev/toolbox/misc/python_load.wcoss2
 #. $HOME/rgdev/toolbox/misc/python_load.hera
-source /home/Robert.Grumbine/rgref/env3.12/bin/activate
+source /home/Robert.Grumbine/rg/env3.12c/bin/activate
 
 #export modelout=$HOME/clim_data/rtofs_gross
 #export modelout=/scratch1/NCEPDEV/climate/Lydia.B.Stefanova/Models/ufs_hr1/SeaIce/
 export modelout=/home/Robert.Grumbine/clim_data/hr4/
+export modeltag=hr4
 
 #export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
 export GDIR=/home/Robert.Grumbine/rgdev/ice_scoring/gross_checks/
@@ -44,14 +45,14 @@ export level=extremes
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/shared
 
-if [ ! -d $HOME/scratch/gross/$MODEL ] ; then
-  mkdir -p  $HOME/scratch/gross/$MODEL
+if [ ! -d $HOME/scratch/gross/$modeltag ] ; then
+  mkdir -p  $HOME/scratch/gross/$modeltag
   if [ $? -ne 0 ] ; then
-    echo zzz could not create rundir  $HOME/scratch/gross/$MODEL
+    echo zzz could not create rundir  $HOME/scratch/gross/$modeltag
     exit 1
   fi
 fi 
-cd  $HOME/scratch/gross/$MODEL
+cd  $HOME/scratch/gross/$modeltag
 
 ln -sf $GDIR/curves curves
 time $GDIR/$MODEL/${MODEL}_scan.sh
@@ -60,12 +61,12 @@ time $GDIR/$MODEL/${MODEL}_scan.sh
 
 # For plots, last number is dot size. Expect fewer pts as go down list, 
 #    so make pts larger
-python3 $GDIR/graphics/plot_errs.py all all 16.
+python3 $GDIR/graphics/plot_errs.py all all 12.
 
 python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions all > nonphysical
-python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 24.
+python3 $GDIR/graphics/plot_errs.py nonphysical nonphysical 16.
 
 python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical > unknown
-python3 $GDIR/graphics/plot_errs.py unknown unknown 32.
+python3 $GDIR/graphics/plot_errs.py unknown unknown 24.
 
-$GDIR/$MODEL/split.sh unknown | sort -n
+$GDIR/split.sh unknown | sort -n

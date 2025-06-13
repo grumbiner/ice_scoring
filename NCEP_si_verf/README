@@ -1,0 +1,70 @@
+I'm using this as a catch-all for sea ice model skill measure files.
+
+Quick start:
+* To build the executables:
+first build the mmablib -- cd ../mmablib; make
+In the NCEP_si_verf directory ./makeall.sh
+
+* You'll also need the fixed files (binaries).
+  * WCOSS: /u/Robert.Grumbine/rgdev/fix
+  * Hera:  /home/Robert.Grumbine/rg/fix
+  * Gaea:  /home/Robert.Grumbine/rg/fix
+
+* For gross checks, more detail in gross_checks/README
+  * python3 gross_ice.py   NAME_OF_ICE.nc   ctl/ice.extremes   redone.dictionary
+    * similarly for ocean.
+  * there are a number of control (ctl) files, in order of least to highest frequency of output:
+    * .extremes, .vvhigh, .vhigh, .high, .moderate
+
+
+
+Contents:
+
+Directly skill-related:
+
+main_dir  -- main shell and python scripts to carry out model verification
+
+Components of verification:
+
+drift -- ice drift skill metrics, oriented to the old drift model (sk2) 
+           using IABP for verification
+      ---- these are relatively well-developed as metrics, see TN NNN, MMM for discussion
+
+concentration -- metrics for measuring skill in sea ice concentration fields, 
+                   the whole field, not just the edge
+ 
+ice_edge -- find ice edge from an ice concentration analysis using transition 
+              against a tolerance
+         -- score a pair of ice edges
+         -- algorithms per discussions with Rick Allard (NRL) and Barbara Casati (ECCC)
+
+thickness -- to be intercomparisons on sea ice thickness
+
+integral -- for ice area and extent, within regions
+
+
+
+Supportive:
+exec    -- executables (not on git)
+
+fix      -- fixed files of use (not on git) 
+-- binary files not on github. Copy or use (ln -s)
+WCOSS: /u/Robert.Grumbine/rg/fix
+Hera: /home/Robert.Grumbine/rg/fix
+Gaea: /home/Robert.Grumbine/rg/fix
+ 
+formats -- brief demonstrations of decoding various input file types and formats
+
+nulls -- null forecasters
+
+legacy -- archive of codes used in support of papers 1994-2017.
+
+docs -- documents (not on git)
+
+
+Robert Grumbine
+22 May 2018
+18 Sep 2019
+12 Jun 2020
+7  Feb 2025
+3  Mar 2025

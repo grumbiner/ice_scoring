@@ -1,0 +1,1 @@
+mv ./generic ./score_diag ./score_nsidc ./nsidc_nsidc ./score_cfsv2 ./persistence ./score_cice_inst ../exec

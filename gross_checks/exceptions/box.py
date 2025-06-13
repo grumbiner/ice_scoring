@@ -6,8 +6,10 @@ import sys
 #from curves import *
 #from regions import *
 
-# Read a gross check file and extract points inside a lat-lon box
-# Arguments are filename, longitude bounds, latitude bounds (min, max)
+'''
+Read a gross check file and extract points inside a lat-lon box
+Arguments are filename, longitude bounds, latitude bounds (min, max)
+'''
 
 #in box -------------------------------------------------
 f = open(sys.argv[1])

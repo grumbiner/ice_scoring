@@ -1,20 +1,12 @@
 import os
 import sys
-import datetime
+import copy
+from abc import ABC
 
-#run with argument 'trial' to get output for success v. failure
+'''
+Define an abstract base class for computing platforms, make it easier to ensure that necessities are present
 
-#------------------------------------------------------------------
-# check evaluation environment
-from eval_env import *
-
-x = runtime_environment("", "", "")
-if (x.ok_env() != 0 ):
-  print("something wrong in unix environment",flush=True)
-  exit(1)
-#debug: print("exbase, exdir, fixdir:",x.exbase, flush=True)
-del x
-
+'''
 #------------------------------------------------------------------
 
 #----------------- High level declarations -----------------------------
@@ -28,102 +20,119 @@ dirs = {
   'osisafdir' : ''
 }
 
-# Known machines:
-machines = {
-  'HERA'          : '/scratch1',
-  'WCOSS_C'       : '/etc/SuSE-release',
-  'WCOSS_DELL_P3' : '/gpfs/dell2',
-  'Orion'         : '/home/rgrumbin',
-  'Gaea'          : '/lustre/f2/scratch',
-  'RG_Home'       : '/Volumes/ncep'
-}
+class platform(ABC):
+  def __init__(self, name, dirtag):
+    self.name = name
+    self.dirtag = dirtag
+  # then after initializing, update 'machines'
+    self.dirs = {
+      'verf_head' : '' ,
+      'edgedir'   : '' ,
+      'imsdir'    : '' ,
+      'ncepdir'   : '' ,
+      'nsidcdir'  : '' ,
+      'osisafdir' : ''
+    }
+
+  #def is_machine(self, name):
+  #  return(self.name == name)
+
+  def is_machine(self):
+    return(os.path.exists(self.dirtag))
+
+
 #----------------- Identify our machines -----------------------------
 
-# Determine which known machine we're on, if any:
 mlist = []
-machine=""
-for x in machines:
-  mlist += [x]
-  if (os.path.exists(machines[x]) ):
-    machine = (x)
+
+# Known computing platforms:
+mlist += [platform('WCOSS_C'       , '/etc/SuSE-release')]
+mlist += [platform('WCOSS_DELL_P3' , '/gpfs/dell2')]
+mlist += [platform('Orion'         , '/home/rgrumbin')]
+mlist += [platform('Gaea'          , '/gpfs/f5/nggps_emc/')]
+mlist += [platform('RG_Home'       , '/Volumes/ncep')]
+mlist += [platform('HERA'          , '/scratch1')]
+# Add yours here in same vein, and then below specify the paths
+
+#debug: print(len(mlist))
+
+nomachine = True
+for i in range(0, len(mlist)):
+  if (mlist[i].is_machine() ):
+    #print("on machine ",mlist[i].name)
+    machine = copy.deepcopy(mlist[i])  # make this a 'platform'
+    nomachine = False
     break
 
-#debug 
-print("platforms.py machine = ",machine, flush=True)
-
-if not machine:
-    print ('ice verification is currently only supported on: %s' % ' '.join(machines))
+if nomachine:
     raise NotImplementedError('Cannot auto-detect platform, ABORT!')
 
-#------------------------------------------------------------------
-# Establish paths to verification data:
-if (machine == 'HERA'):
-  dirs['verf_head'] = '/home/Robert.Grumbine/clim_data/verification_data/'
-  dirs['edgedir']   = dirs['verf_head']+'/edges/'
-  dirs['imsdir']    = dirs['verf_head']+'/ims/'
-  dirs['ncepdir']   = dirs['verf_head']+'/ice5min/'
-  dirs['nsidcdir']  = dirs['verf_head']+'/G02202_V4/'
-  dirs['osisafdir'] = dirs['verf_head']+'/osisaf/'
-  dirs['fixdir']   = '/home/Robert.Grumbine/rgdev/fix'
-elif (machine == 'Orion'):
-  dirs['imsdir'] = '/home/rgrumbin/rgdev/verification_data/ims/'
-  dirs['ncepdir'] = '/home/rgrumbin/rgdev/verification_data/ice5min/'
-  dirs['nsidcdir'] = '/home/rgrumbin/rgdev/verification_data/G02202_V4/'
-  dirs['osisafdir'] = '/home/rgrumbin/rgdev/verification_data/osisaf/'
-  dirs['fixdir']   = '/home/rgrumbin/rgdev/ice_scoring/fix'
-elif (machine == 'WCOSS_C'):
-  dirs['imsdir'] = '/u/robert.grumbine/noscrub/verification/ims/'
-  dirs['ncepdir'] = '/u/robert.grumbine/noscrub/verification/sice/'
-  dirs['nsidcdir'] = '/u/robert.grumbine/noscrub/verification/G02202_V4/'
-  dirs['osisafdir'] = '/u/robert.grumbine/noscrub/verification/osisaf/'
-  dirs['fixdir']   = '/u/robert.grumbine/rgdev/ice_scoring/fix'
-elif (machine == 'Gaea'):
-  dirs['imsdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/ims/'
-  dirs['ncepdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/ice5min/'
-  dirs['nsidcdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/G02202_V4/'
-  dirs['osisafdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/osisaf/'
-  dirs['fixdir']   = '/lustre/f2/dev/ncep/Robert.Grumbine/fix'
-elif (machine == 'RG_Home'):
-  dirs['imsdir'] = '/Volumes/ncep/allconc/ims/'
-  dirs['ncepdir'] = '/Volumes/ncep/allconc/ice5min/'
-  dirs['nsidcdir'] = '/Volumes/ncep/allconc/nsidc_nc/'
-  dirs['fixdir']   = '/u/Robert.Grumbine/para/mmablib/ice_scoring/fix'
-else:
-  print ('ice verification is currently only supported on: %s' % ' '.join(machines))
-  raise NotImplementedError('Cannot find verification data directory, ABORT!')
+##------------------------------------------------------------------
+## Establish paths to verification data:
+if (machine.name == 'HERA'):
+  machine.dirs['verf_head'] = '/home/Robert.Grumbine/clim_data/verification_data/'
+  machine.dirs['edgedir']   = machine.dirs['verf_head']+'/edges/'
+  machine.dirs['imsdir']    = machine.dirs['verf_head']+'/ims/'
+  machine.dirs['ncepdir']   = machine.dirs['verf_head']+'/ice5min/'
+  machine.dirs['nsidcdir']  = machine.dirs['verf_head']+'/G02202_V4/'
+  machine.dirs['osisafdir'] = machine.dirs['verf_head']+'/osisaf/'
+  machine.dirs['fixdir']   = '/home/Robert.Grumbine/rg/fix'
+elif (machine.name == 'Orion'):
+  machine.dirs['imsdir'] = '/home/rgrumbin/rgdev/verification_data/ims/'
+  machine.dirs['ncepdir'] = '/home/rgrumbin/rgdev/verification_data/ice5min/'
+  machine.dirs['nsidcdir'] = '/home/rgrumbin/rgdev/verification_data/G02202_V4/'
+  machine.dirs['osisafdir'] = '/home/rgrumbin/rgdev/verification_data/osisaf/'
+  machine.dirs['fixdir']   = '/home/rgrumbin/rgdev/ice_scoring/fix'
+elif (machine.name == 'WCOSS_C'):
+  machine.dirs['imsdir'] = '/u/robert.grumbine/noscrub/verification/ims/'
+  machine.dirs['ncepdir'] = '/u/robert.grumbine/noscrub/verification/sice/'
+  machine.dirs['nsidcdir'] = '/u/robert.grumbine/noscrub/verification/G02202_V4/'
+  machine.dirs['osisafdir'] = '/u/robert.grumbine/noscrub/verification/osisaf/'
+  machine.dirs['fixdir']   = '/u/robert.grumbine/rgdev/ice_scoring/fix'
+elif (machine.name == 'Gaea'):
+  machine.dirs['imsdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/ims/'
+  machine.dirs['ncepdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/ice5min/'
+  machine.dirs['nsidcdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/G02202_V4/'
+  machine.dirs['osisafdir'] = '/lustre/f2/dev/ncep/Robert.Grumbine/CICE_INPUTDATA/Verification_data/osisaf/'
+  machine.dirs['fixdir']   = '/lustre/f2/dev/ncep/Robert.Grumbine/fix'
+elif (machine.name == 'RG_Home'):
+  machine.dirs['imsdir'] = '/Volumes/ncep/allconc/ims/'
+  machine.dirs['ncepdir'] = '/Volumes/ncep/allconc/ice5min/'
+  machine.dirs['nsidcdir'] = '/Volumes/ncep/allconc/nsidc_nc/'
+  machine.dirs['fixdir']   = '/u/Robert.Grumbine/para/mmablib/ice_scoring/fix'
 
-#debug print("platforms.py fixdir = ", (dirs['fixdir']) , flush=True)
-#debug print("platforms.py os path exists ", os.path.exists(dirs['fixdir']), flush=True)
-#debug0 exit(1)
-
-#------------------------------------------------------------------
-#Do we have the fixed files directory?
-if (not os.path.exists(dirs['fixdir'])):
-  print('no ice verification fixed (reference) directory ',dirs['fixdir'])
+##------------------------------------------------------------------
+##Do we have the fixed files directory?
+if (not os.path.exists(machine.dirs['fixdir'])):
+  print('no ice verification fixed (reference) directory ',machine.dirs['fixdir'])
   raise NotImplementedError('Cannot find any verification fixed (reference) directory.  ABORT!')
 
+#debug: print (machine.dirs, flush=True)
+
 #Do we have verification data directories?
-nsidcverf = os.path.exists(dirs['nsidcdir'])
-ncepverf  = os.path.exists(dirs['ncepdir'])
-imsverf   = os.path.exists(dirs['imsdir'])
-#debug print("platforms.py obsdirs: ",dirs['nsidcdir'], dirs['ncepdir'], dirs['imsdir'] , flush=True)
+nsidcverf = os.path.exists(machine.dirs['nsidcdir'])
+ncepverf  = os.path.exists(machine.dirs['ncepdir'])
+imsverf   = os.path.exists(machine.dirs['imsdir'])
+osisafverf   = os.path.exists(machine.dirs['osisafdir'])
 
-if (not nsidcverf and not ncepverf and not imsverf):
+#debug: print (nsidcverf , ncepverf , imsverf , osisafverf, flush=True )
+
+if (not nsidcverf and not ncepverf and not imsverf and not osisafverf ):
   print('no ice verification directory is present, aborting')
-  print('tried verification directories ', dirs['nsidcdir'], dirs['ncepdir'], dirs['imsdir'] )
+  print('tried verification directories ', machine.dirs['nsidcdir'], machine.dirs['ncepdir'], machine.dirs['imsdir'], machine.dirs['osisafdir'] )
   raise NotImplementedError('Cannot find any verification data directories, ABORT!')
-#------------------------------------------------------------------
-#Variables established by this script:
-#  machines (a dictionary of machine identifiers)
-#  dirs (a dictionary of directory paths)
-#  execdir (location of executables, needs EXDIR environment variable)
-#  fixdir (location of executables, needs EXDIR environment variable)
-#  imsdir, ncepdir, nsidcdir, fixdir (entries to dictionary) 
-
+##------------------------------------------------------------------
+##Variables established by this script:
+##  machines (a dictionary of machine identifiers)
+##  dirs (a dictionary of directory paths)
+##  execdir (location of executables, needs EXDIR environment variable)
+##  fixdir (location of executables, needs EXDIR environment variable)
+##  imsdir, ncepdir, nsidcdir, fixdir (entries to dictionary) 
+#
 if (len(sys.argv) >  1) :
   if (sys.argv[1] == "trial"):
     print("Evaluation programs and scripts look ok to run on ",machine)
-    print("ims dir   = ", dirs['imsdir'], imsverf)
-    print("nsidc dir = ", dirs['nsidcdir'], nsidcverf)
-    print("ncep dir  = ", dirs['ncepdir'], ncepverf)
-    print("reference fixed files directory = ",dirs['fixdir'], flush=True)
+    print("ims dir   = ", machine.dirs['imsdir'], imsverf)
+    print("nsidc dir = ", machine.dirs['nsidcdir'], nsidcverf)
+    print("ncep dir  = ", machine.dirs['ncepdir'], ncepverf)
+    print("reference fixed files directory = ",machine.dirs['fixdir'], flush=True)

@@ -33,6 +33,9 @@ for line in fin:
     lat.append(tll)
 
 print("found ",len(i)," error points")
+if (len(i) == 0):
+    exit(0)
+
 #debug print(max(lat), min(lat), max(lon), min(lon) )
 latmax = max(lat)
 latmin = min(lat)
@@ -85,8 +88,13 @@ else:
 ax.gridlines(crs=ccrs.PlateCarree(), xlocs=xlocs, ylocs=ylocs )
 # not on hera: ax.coastlines()
 ax.add_feature(cfeature.GSHHSFeature(levels=[1,2], scale="c") )
-plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize)
+if markersize < 12:
+    alpha = 1
+else:
+    alpha = 0.2/25
+
+plt.scatter(lon, lat, transform=ccrs.PlateCarree(), s = markersize, alpha = alpha)
 plt.savefig("ll_errs_"+title_tag+".png")
 plt.close()
 
-print(markersize)
+#debug: print(markersize)

@@ -31,11 +31,12 @@ source $HOME/env3.12/bin/activate
 
 #export modelout=$HOME/clim_data/rtofs_gross
 export modelout=$HOME/noscrub/retros/
-export modeltag=ufs_ocean
+export expttag=ufs_ocean
 export MODEL=ufs_ocean
+export retro=10
 
-#export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
-export GDIR=$HOME/noscrub/retros/gross_checks/
+export GDIR=$HOME/rgdev/ice_scoring/gross_checks/
+#export GDIR=$HOME/noscrub/retros/gross_checks/
 
 
 #------------------------ General across platforms --------------
@@ -45,14 +46,14 @@ export level=extreme
 
 export PYTHONPATH=$PYTHONPATH:$GDIR/shared
 
-if [ ! -d $HOME/scratch/gross/$modeltag ] ; then
-  mkdir -p  $HOME/scratch/gross/$modeltag
+if [ ! -d $HOME/scratch/gross/$expttag ] ; then
+  mkdir -p  $HOME/scratch/gross/$expttag
   if [ $? -ne 0 ] ; then
-    echo zzz could not create rundir  $HOME/scratch/gross/$modeltag
+    echo zzz could not create rundir  $HOME/scratch/gross/$expttag
     exit 1
   fi
 fi 
-cd  $HOME/scratch/gross/$modeltag
+cd  $HOME/scratch/gross/$expttag
 
 ln -sf $GDIR/curves curves
 time $GDIR/$MODEL/${MODEL}_scan.sh
@@ -102,5 +103,5 @@ do
   mv *.png *.s $model
 # ------------------ copy to desk for pseudo-web
   cd $model
-  scp -p *.png rmg3@emc-lw-rgrumbi:website/retro/9/ufs_ocean/$model
+  scp -p *.png rmg3@emc-lw-rgrumbi:website/retro/$retro/ufs_ocean/$model
 done

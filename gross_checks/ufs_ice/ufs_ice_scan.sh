@@ -11,7 +11,9 @@ set -x
 export level=extreme
 export cyc=00
 
-for f in 20241116 20241117 20241118 20241119 20241120 20241121 20241122 20241123 20241124
+#for f in 20241116 20241117 20241118 20241119 20241120 20241121 20241122 20241123 20241124
+f=20241116
+while [ $f -le 20241207 ]
 do
   tag=$f
   yy=`echo $f | cut -c1-4`
@@ -45,6 +47,8 @@ do
     done
   fi
 
+  f=`expr $f + 1`
+  f=`$HOME/bin/dtgfix3 $f`
 done
 
 model=gfs

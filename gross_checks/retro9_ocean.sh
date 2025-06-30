@@ -67,13 +67,13 @@ cat ${model}.ocean.*.results > all.$model
 
 for model in gfs
 do
-  python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
+  #python3 $GDIR/graphics/plot_errs.py all.$model all.$model 12.
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/ocean.exceptions all.$model > nonphysical.$model
-  python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12.
+  #python3 $GDIR/graphics/plot_errs.py nonphysical.$model nonphysical.$model 12.
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$model > unknown.$model
-  python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12.
+  #python3 $GDIR/graphics/plot_errs.py unknown.$model unknown.$model 12.
 done
 
 

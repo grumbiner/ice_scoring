@@ -64,13 +64,13 @@ time $GDIR/$MODEL/${MODEL}_scan.sh
 #    so make pts larger
 for syst in gfs gdas
 do
-  python3 $GDIR/graphics/plot_errs.py all.$syst all.$syst 12.
+  #python3 $GDIR/graphics/plot_errs.py all.$syst all.$syst 12.
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/physical.exceptions.$MODEL all.$syst > nonphysical.$syst
-  python3 $GDIR/graphics/plot_errs.py nonphysical.$syst nonphysical.$syst 12.
+  #python3 $GDIR/graphics/plot_errs.py nonphysical.$syst nonphysical.$syst 12.
 
   python3 $GDIR/exceptions/exceptions.py $GDIR/exceptions/known.errors nonphysical.$syst > unknown.$syst
-  python3 $GDIR/graphics/plot_errs.py unknown.$syst unknown.$syst 12.
+  #python3 $GDIR/graphics/plot_errs.py unknown.$syst unknown.$syst 12.
 done
 
 for syst in gfs gdas

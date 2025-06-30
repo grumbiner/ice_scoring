@@ -37,6 +37,6 @@ for j in range(0,ny):
       if (lons[j][i] > 360.):
           while lons[j][i] > 360. :
               lons[j][i] -= 360.
-      print(i,j, lons[j][i], lats[j][i], speed[j][i], sst[j][i] )
+      print(i,j, lons[j][i], lats[j][i], 'pm', speed[j][i], sst[j][i] )
 
 print(count, " low speed points")

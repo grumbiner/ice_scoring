@@ -21,10 +21,10 @@ export OUTBASE=$HOME/noscrub/model_intercompare/rtofs_cice/
 #RTOFS HYCOM output:
 date
 tag=`date +"%Y%m%d"`
-tag=20250701
+tag=20250531
 level=extreme
 
-while [ $tag -ge 20250601 ]
+while [ $tag -ge 20250401 ]
 do
   for parm in ice prog diag
   do

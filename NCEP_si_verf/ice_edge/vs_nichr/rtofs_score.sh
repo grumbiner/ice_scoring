@@ -2,7 +2,7 @@
 
 cd $HOME/rgdev/edges/rtofs_scores
 
-. ~/rgdev/toolbox/misc/python_load.wcoss2
+source $HOME/env3.12/bin/activate
 
 for crit in 00 01 15 03 05 10
 do

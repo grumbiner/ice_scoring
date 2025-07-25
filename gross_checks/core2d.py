@@ -63,8 +63,25 @@ def core_check(fname, moddef, ctl_dictionary, flying, fout = sys.stdout ):
   # Acquire descriptive (e.g. nx, tlons) or support (e.g. tmask) variables
   nx = len(model.dimensions[headers['nx']])
   ny = len(model.dimensions[headers['ny']])
-  tlons = model.variables[headers['TLON']][:,:]
-  tlats = model.variables[headers['TLAT']][:,:]
+#RG: need to handle case of regular lat-lon grid, 1 d specifications
+  try:
+    tlons = model.variables[headers['TLON']][:,:]
+  except:
+    print("error getting TLON. maybe 1d instead of 2d?")
+    tlons = np.zeros((ny,nx))
+    tmp = model.variables[headers['TLON']][:]
+    tlons[:,:] = tmp[:]
+    print("tried to work with 1d",tlons[ny-1, nx-1], tlons[1,1])
+
+  try:
+    tlats = model.variables[headers['TLAT']][:,:]
+  except:
+    print("error getting TLAT. maybe 1d instead of 2d?")
+    tlats = np.zeros((ny, nx))
+    tmp = model.variables[headers['TLAT']][:]
+    for tmpindex in range(0,nx):
+      tlats[:,tmpindex] = tmp[:]
+    print("tried to work with 1d",tlats[ny-1, nx-1], tlats[1,1])
     
   #LAND = 0, #Ocean = 1
   try:

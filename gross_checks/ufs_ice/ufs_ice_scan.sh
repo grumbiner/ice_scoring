@@ -8,9 +8,12 @@ module list
 
 set -x
 
-export level=extremes
+export level=extreme
+export cyc=00
 
-for f in 20230423 20230424 20230425 20230426 20230427 20230428
+#for f in 20241116 20241117 20241118 20241119 20241120 20241121 20241122 20241123 20241124
+f=20241116
+while [ $f -le 20241207 ]
 do
   tag=$f
   yy=`echo $f | cut -c1-4`
@@ -21,7 +24,7 @@ do
     for fhr in 003 006 009
     do
         time python3 $GDIR/universal2d.py \
-               $modelout/gdas.$tag/00/model/ice/history/gdas.ice.t00z.inst.f${fhr}.nc \
+               $modelout/gdas.$tag/$cyc/model/ice/history/gdas.ice.t${cyc}z.inst.f${fhr}.nc \
                cice.header \
                $GDIR/sfs.199611 redone \
                > gdas.cice.${f}.$level.$fhr.results
@@ -33,7 +36,7 @@ do
     while [ $fhr -le 240 ]
     do
       time python3 $GDIR/universal2d.py \
-             $modelout/gfs.$tag/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
+             $modelout/gfs.$tag/${cyc}/model/ice/history/gfs.ice.t${cyc}z.6hr_avg.f${fhr}.nc \
              cice.header \
              $GDIR/sfs.199611 redone \
              > gfs.cice.${f}.$level.$fhr.results
@@ -44,10 +47,13 @@ do
     done
   fi
 
+  f=`expr $f + 1`
+  f=`$HOME/bin/dtgfix3 $f`
 done
 
-cat cice.*.results > all
-for lead in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+model=gfs
+cat ${model}.cice.*.results > all.$model
+for lead in 0 1 2 3 4 5 6 7 8 9 
 do
   fhr=`expr $lead \* 24 + 6`
   if [ $fhr -lt 10 ] ; then
@@ -56,7 +62,13 @@ do
     fhr=0$fhr
   fi
 
-  cat cice.*.$level.$fhr.results > all.fhr.$lead
+  cat ${model}.cice.*.$level.$fhr.results > all.${model}.$fhr
 done
 
-#             $modelout/gfs.$f/00/model/ice/history/gfs.ice.t00z.6hr_avg.f${fhr}.nc \
+model=gdas
+cat ${model}.cice.*.results > all.$model
+for fhr in 003 006 009
+do
+  cat ${model}.cice.*.$level.$fhr.results > all.${model}.$fhr
+done
+

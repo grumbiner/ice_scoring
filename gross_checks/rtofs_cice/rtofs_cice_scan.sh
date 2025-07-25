@@ -50,7 +50,7 @@ do
     if [ -f $modelout/rtofs.${tag}/rtofs_glo.t00z.${lead}.cice_inst ] ; then
       time python3 $GDIR/$MODEL/$MODEL.py \
           $modelout/rtofs.${tag}/rtofs_glo.t00z.${lead}.cice_inst \
-          $GDIR/$MODEL/$MODEL.extremes fly > beta.$tag.${lead}
+          $GDIR/$MODEL/$MODEL.extreme fly > beta.$tag.${lead}
       mv fhistogram fhistogram.$tag.$lead
 
     elif [ -f $modelout/${tag}/rtofs_glo.t00z.${lead}.cice_inst ] ; then

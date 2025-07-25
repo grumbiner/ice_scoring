@@ -11,9 +11,9 @@ set -x
 export level=extreme
 export cyc=00
 
-#for f in 20241116 20241117 20241118 20241119 20241120 20241121 20241122 20241123 20241124
-f=20241116
-while [ $f -le 20241207 ]
+for f in 20241210 20241211 20241212
+#f=20241116
+#while [ $f -le 20241207 ]
 do
   tag=$f
   yy=`echo $f | cut -c1-4`
@@ -71,4 +71,3 @@ for fhr in 003 006 009
 do
   cat ${model}.cice.*.$level.$fhr.results > all.${model}.$fhr
 done
-
